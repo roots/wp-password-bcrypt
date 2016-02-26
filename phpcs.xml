@@ -4,7 +4,6 @@
 
   <!-- Scan these files -->
   <file>wp-password-bcrypt.php</file>
-  <file>src</file>
 
   <!-- Show colors in console -->
   <arg value="-colors"/>

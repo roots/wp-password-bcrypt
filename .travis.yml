@@ -6,21 +6,10 @@ php:
   - 5.5
   - nightly
 
-env:
-  - TRAVIS_NODE_VERSION="4.2" CXX="g++-4.8"
-  - TRAVIS_NODE_VERSION="5.3" CXX="g++-4.8"
-
 matrix:
+  fast_finish: true
   allow_failures:
-    - php: 5.5
     - php: nightly
-
-addons:
-  apt:
-    sources:
-    - ubuntu-toolchain-r-test
-    packages:
-    - g++-4.8
 
 cache:
   apt: true
@@ -28,13 +17,12 @@ cache:
     - $HOME/.composer/cache
     - vendor
 
+before_install:
+  - composer self-update
+  - git config --global github.accesstoken $GITHUB_OAUTH_TOKEN
+
 install:
-  - travis_retry composer self-update && composer --version
-  - export PATH="$HOME/.composer/vendor/bin:$PATH"
-  - travis_retry composer global require squizlabs/php_codesniffer --prefer-dist
-  - travis_retry composer global require phpmd/phpmd --prefer-dist
-  - travis_retry composer install -o --prefer-dist --no-interaction
+  - composer install -o --prefer-dist --no-interaction
 
 script:
-  - phpcs -n
-  - phpmd src text cleancode,codesize,controversial,design,naming,unusedcode
+  - composer test

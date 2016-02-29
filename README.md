@@ -42,14 +42,14 @@ The `wp_hash_password_options` filter is available to set the [options](http://p
 
 ### `wp_check_password`
 
-At it's core, this function just calls `password_verify` instead of the default.
+At its core, this function just calls `password_verify` instead of the default.
 However, it also checks if a user's password was *previously* hashed with the old MD5-based hasher and re-hashes it with bcrypt. This means you can still install this plugin on an existing site and everything will work seamlessly.
 
 The `check_password` filter is available just like the default WP function.
 
 ### `wp_set_password`
 
-This function is included here verbatim but it with the addition of returning the hash. The default WP function does not return anything which means you end up hashing it twice for no reason.
+This function is included here verbatim but with the addition of returning the hash. The default WP function does not return anything which means you end up hashing it twice for no reason.
 
 ## Further Reading
 
@@ -59,7 +59,7 @@ This function is included here verbatim but it with the addition of returning th
 
 ## Contributors
 
-This plugin is based off of a [Gist](https://gist.github.com/Einkoro/11078301) by [@Einkoro](https://github.com/Einkoro).
+This plugin is based on a [Gist](https://gist.github.com/Einkoro/11078301) by [@Einkoro](https://github.com/Einkoro).
 
 It has been modified and packaged by the Roots team.
 

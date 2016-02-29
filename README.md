@@ -3,7 +3,7 @@
 
 wp-password-bcrypt is a WordPress plugin to replace WP's outdated and insecure MD5-based password hashing with the modern and secure [bcrypt](https://en.wikipedia.org/wiki/Bcrypt).
 
-This plugin requires PHP >= 5.5.0 which introduced the built-in `[password_hash](http://php.net/manual/en/function.password-hash.php)` and `[password_verify](http://php.net/manual/en/function.password-verify.php)` functions.
+This plugin requires PHP >= 5.5.0 which introduced the built-in [`password_hash`](http://php.net/manual/en/function.password-hash.php) and [`password_verify`](http://php.net/manual/en/function.password-verify.php) functions.
 
 ## Requirements
 

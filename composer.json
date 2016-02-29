@@ -40,6 +40,18 @@
   "autoload-dev": {
     "files": ["wp-password-bcrypt.php"]
   },
+  "archive" : {
+    "exclude": [
+      ".editorconfig",
+      ".gitattributes",
+      ".gitignore",
+      ".travis.yml",
+      "CONTRIBUTING.md",
+      "phpcs.xml",
+      "phpunit.xml",
+      "tests"
+    ]
+  },
   "scripts": {
     "test": [
       "vendor/bin/phpcs",

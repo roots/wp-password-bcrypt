@@ -23,7 +23,7 @@ This is a [known](https://core.trac.wordpress.org/ticket/21022) problem which Wo
 * provide instructions on how to fix it and make it more secure
 * notify users on newer PHP versions that they *could* be more secure
 
-What's wrong with MD5? Really simply: it's too cheap and fast to generate hashes.
+What's wrong with MD5? Really simply: it's too cheap and fast to generate cryptographically secure hashes.
 
 ## The Solution
 

@@ -13,13 +13,13 @@ This plugin requires PHP >= 5.5.0 which introduced the built-in [`password_hash`
 
 This plugin is a Composer library so it can be installed in a few ways:
 
-### Composer Autoloaded
+#### Composer Autoloaded
 
 `composer require roots/wp-password-bcrypt`
 
 `wp-password-bcrypt.php` file will be automatically autoloaded by Composer and it *won't* appear in your plugins.
 
-### Manually as a must-use plugin
+#### Manually as a must-use plugin
 
 If you don't use Composer, you can manually copy `wp-password-bcrypt.php` into your `mu-plugins` folder.
 
@@ -53,19 +53,19 @@ This plugin plugs in 3 functions:
 * `wp_hash_password`
 * `wp_set_password`
 
-### `wp_hash_password`
+#### `wp_hash_password`
 
 This function is the simplest. This plugin simply calls `password_hash` instead of WP's default password hasher.
 The `wp_hash_password_options` filter is available to set the [options](http://php.net/manual/en/function.password-hash.php) that `password_hash` can accept.
 
-### `wp_check_password`
+#### `wp_check_password`
 
 At its core, this function just calls `password_verify` instead of the default.
 However, it also checks if a user's password was *previously* hashed with the old MD5-based hasher and re-hashes it with bcrypt. This means you can still install this plugin on an existing site and everything will work seamlessly.
 
 The `check_password` filter is available just like the default WP function.
 
-### `wp_set_password`
+#### `wp_set_password`
 
 This function is included here verbatim but with the addition of returning the hash. The default WP function does not return anything which means you end up hashing it twice for no reason.
 

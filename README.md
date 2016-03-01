@@ -11,7 +11,25 @@ This plugin requires PHP >= 5.5.0 which introduced the built-in [`password_hash`
 
 ## Installation
 
+This plugin is a Composer library so it can be installed in a few ways:
+
+### Composer Autoloaded
+
 `composer require roots/wp-password-bcrypt`
+
+`wp-password-bcrypt.php` file will be automatically autoloaded by Composer and it *won't* appear in your plugins.
+
+### Manually as a must-use plugin
+
+If you don't use Composer, you can manually copy `wp-password-bcrypt.php` into your `mu-plugins` folder.
+
+We **do not** recommend using this as a normal (non-mu) plugin. It makes it too easy to disable or remove the plugin.
+
+### Usage Warning
+
+Once enabled, this plugin needs to stay that way. If you remove this plugin, users will no longer be able to log in.
+
+However, you can stop using the plugin if you have code in place to migrate the hashes or continue using bcrypt hashes via another method.
 
 ## The Problem
 

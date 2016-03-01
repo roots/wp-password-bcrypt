@@ -1,9 +1,8 @@
 {
   "name": "roots/wp-password-bcrypt",
-  "type": "wordpress-muplugin",
   "license": "MIT",
-  "description": "WordPress must-use plugin which replaces wp_hash_password and wp_check_password's phpass hasher with PHP 5.5's password_hash and password_verify using bcrypt.",
-  "homepage": "https://roots.io/plugin/wp-password-bcrypt",
+  "description": "WordPress plugin which replaces wp_hash_password and wp_check_password's phpass hasher with PHP 5.5's password_hash and password_verify using bcrypt.",
+  "homepage": "https://roots.io/plugins/wp-password-bcrypt",
   "authors": [
     {
       "name": "Scott Walkinshaw",
@@ -37,7 +36,7 @@
     "squizlabs/php_codesniffer": "^2.5.1",
     "phpunit/phpunit": "^4.8.23|^5.2.9"
   },
-  "autoload-dev": {
+  "autoload": {
     "files": ["wp-password-bcrypt.php"]
   },
   "archive" : {

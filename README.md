@@ -69,6 +69,42 @@ The `check_password` filter is available just like the default WP function.
 
 This function is included here verbatim but with the addition of returning the hash. The default WP function does not return anything which means you end up hashing it twice for no reason.
 
+## FAQ
+
+**What happens to existing passwords when I install the plugin?**
+
+Nothing at first. An existing password is only re-hashed with bcrypt *when they log in*. If a user never logs in, their password will remain hashed with MD5 in your database forever.
+
+**Why doesn't this plugin re-hash all existing passwords in the database?**
+
+Right now it's beyond the scope of the plugin. We want to keep it simple and straightforward. This is probably best left up to the individual developer or maybe a separate plugin in the future. See https://github.com/roots/wp-password-bcrypt/issues/6 for more details.
+
+**What happens if I remove/deactivate the plugin?**
+
+Any users that have had their password hashed via this plugin/bcrypt will no longer be able to log in successfully without first resetting their password. You could always re-enable the plugin again to get log ins working.
+
+There's no reason to ever deactivate this plugin though. You'd be going back to the insecure MD5.
+
+**What if I really want to remove the plugin and have a good reason for it?**
+
+Then make sure you include "migration" code to convert the bcrypt hashes to whatever hashing function you're switching to. This is left up to you and is not part of the plugin.
+
+**Why aren't you using the password_compat library so this works back to PHP 5.3.7?**
+
+The [password_compact](https://github.com/ircmaxell/password_compat) library is great if you really need it. But the Roots team adovates using supported versions of PHP which of now (March 2016) is 5.5 and above. Part of security is using a version of PHP that still gets security patches so we won't actively do something to support old unsupported versions of PHP.
+
+**Why doesn't this plugin show up in the admin?**
+
+If you're using Composer, then the `wp-password-bcrypt.php` file is automatically autoloaded. It's not treated as a true WordPress plugin since the package type is not set to `wordpress-muplugin` so it won't show up in the plugin list.
+
+**What's wrong with using this as a plugin instead of a must-use plugin?**
+
+As explained above, you don't want to disable this plugin once you've enabled it. Installing this in `plugins` (as a "normal" plugin) instead of in `mu-plugins` (as a must-use plugin) makes it possible for an admin user to accidentally disable it.
+
+**How is this different than other plugins which already exist?**
+
+Theres are a [few plugins](https://en-gb.wordpress.org/plugins/search.php?q=bcrypt) that exist which enable bcrypt. This plugin is different because we bypass the `PasswordHash` class and the `phpass` library that WordPress core uses. This plugin uses PHP's built-in `password_hash` and `password_verify` functions directly to only support PHP 5.5+.
+
 ## Further Reading
 
 * `password_hash` [RFC](https://wiki.php.net/rfc/password_hash)

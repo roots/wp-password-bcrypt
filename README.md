@@ -25,12 +25,6 @@ If you don't use Composer, you can manually copy `wp-password-bcrypt.php` into y
 
 We **do not** recommend using this as a normal (non-mu) plugin. It makes it too easy to disable or remove the plugin.
 
-### Usage Warning
-
-Once enabled, this plugin needs to stay that way. If you remove this plugin, users will no longer be able to log in.
-
-However, you can stop using the plugin if you have code in place to migrate the hashes or continue using bcrypt hashes via another method.
-
 ## The Problem
 
 WordPress still uses an MD5 based password hashing scheme. They are effectively making 25% of websites more insecure because they refuse to bump their minimum PHP requirements. By continuing to allow EOL PHP versions back to 5.2, they can't use newer functions like `password_hash`.
@@ -81,13 +75,9 @@ Right now it's beyond the scope of the plugin. We want to keep it simple and str
 
 **What happens if I remove/deactivate the plugin?**
 
-Any users that have had their password hashed via this plugin/bcrypt will no longer be able to log in successfully without first resetting their password. You could always re-enable the plugin again to get log ins working.
+Magically, everything still works. See this [comment](https://github.com/roots/wp-password-bcrypt/issues/7#issuecomment-190919884) for more details.
 
-There's no reason to ever deactivate this plugin though. You'd be going back to the insecure MD5.
-
-**What if I really want to remove the plugin and have a good reason for it?**
-
-Then make sure you include "migration" code to convert the bcrypt hashes to whatever hashing function you're switching to. This is left up to you and is not part of the plugin.
+Any existing bcrypt hashed passwords will remain that way. Any new users or users resetting a password will get a new MD5 hashed password.
 
 **Why aren't you using the password_compat library so this works back to PHP 5.3.7?**
 

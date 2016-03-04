@@ -22,7 +22,9 @@ const WP_OLD_HASH_PREFIX = '$P$';
  * @SuppressWarnings(PHPMD.CamelCaseVariableName) $wp_hasher is a global variable, we cannot change its name
  */
 function wp_check_password( $password, $hash, $user_id = '' ) {
-	if ( strpos( $hash, WP_OLD_HASH_PREFIX ) === 0 ) {
+	$check = password_verify( $password, $hash );
+
+	if ( ! $check && strpos( $hash, WP_OLD_HASH_PREFIX ) === 0 ) {
 		global $wp_hasher;
 
 		if ( empty( $wp_hasher ) ) {
@@ -32,13 +34,14 @@ function wp_check_password( $password, $hash, $user_id = '' ) {
 		}
 
 		$check = $wp_hasher->CheckPassword( $password, $hash );
-
-		if ( $check && $user_id ) {
-			$hash = wp_set_password( $password, $user_id );
-		}
 	}
 
-	$check = password_verify( $password, $hash );
+	$options = apply_filters( 'wp_hash_password_options', [] );
+
+	if ( $check && $user_id && password_needs_rehash( $hash , PASSWORD_DEFAULT, $options ) ) {
+		$hash = wp_set_password( $password, $user_id );
+	}
+
 	return apply_filters( 'check_password', $check, $password, $hash, $user_id );
 }
 

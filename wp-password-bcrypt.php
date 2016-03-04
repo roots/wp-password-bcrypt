@@ -16,7 +16,7 @@ const WP_OLD_HASH_PREFIX = '$P$';
  *
  * @param string $password Plaintext password
  * @param string $hash Hash of password
- * @param int|string $user_id ID of user to whom password belongs
+ * @param int|string $user_id User ID
  * @return mixed|void
  *
  * @SuppressWarnings(PHPMD.CamelCaseVariableName) $wp_hasher is a global variable, we cannot change its name
@@ -57,7 +57,7 @@ function wp_hash_password( $password ) {
  * Set password using bcrypt
  *
  * @param string $password Plaintext password
- * @param int $user_id ID of user to whom password belongs
+ * @param int $user_id User ID
  * @return bool|string
  */
 function wp_set_password( $password, $user_id ) {

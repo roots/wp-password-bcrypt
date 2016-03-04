@@ -55,6 +55,7 @@ function wp_check_password( $password, $hash, $user_id = '' ) {
  */
 function wp_hash_password( $password ) {
 	$cost = apply_filters( 'wp_hash_password_cost', 10 );
+
 	return password_hash( $password, PASSWORD_DEFAULT, [ 'cost' => $cost ] );
 }
 
@@ -71,7 +72,17 @@ function wp_set_password( $password, $user_id ) {
 
 	$hash = wp_hash_password( $password );
 
-	$wpdb->update( $wpdb->users, [ 'user_pass' => $hash, 'user_activation_key' => '' ], [ 'ID' => $user_id ] );
+	$wpdb->update(
+		$wpdb->users,
+		[
+			'user_pass'           => $hash,
+			'user_activation_key' => '',
+		],
+		[
+			'ID' => $user_id,
+		]
+	);
+
 	wp_cache_delete( $user_id, 'users' );
 
 	return $hash;

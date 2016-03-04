@@ -36,9 +36,9 @@ function wp_check_password( $password, $hash, $user_id = '' ) {
 		$check = $wp_hasher->CheckPassword( $password, $hash );
 	}
 
-	$options = apply_filters( 'wp_hash_password_options', [] );
+	$cost = apply_filters( 'wp_hash_password_cost', 10 );
 
-	if ( $check && $user_id && password_needs_rehash( $hash , PASSWORD_DEFAULT, $options ) ) {
+	if ( $check && $user_id && password_needs_rehash( $hash , PASSWORD_DEFAULT, [ 'cost' => $cost ] ) ) {
 		$hash = wp_set_password( $password, $user_id );
 	}
 
@@ -52,8 +52,8 @@ function wp_check_password( $password, $hash, $user_id = '' ) {
  * @return bool|string
  */
 function wp_hash_password( $password ) {
-	$options = apply_filters( 'wp_hash_password_options', [] );
-	return password_hash( $password, PASSWORD_DEFAULT, $options );
+	$cost = apply_filters( 'wp_hash_password_cost', 10 );
+	return password_hash( $password, PASSWORD_DEFAULT, [ 'cost' => $cost ] );
 }
 
 /**

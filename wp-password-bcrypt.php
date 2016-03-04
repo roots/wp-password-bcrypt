@@ -36,10 +36,12 @@ function wp_check_password( $password, $hash, $user_id = '' ) {
 		$check = $wp_hasher->CheckPassword( $password, $hash );
 	}
 
-	$cost = apply_filters( 'wp_hash_password_cost', 10 );
+	if ( $check && $user_id ) {
+		$cost = apply_filters( 'wp_hash_password_cost', 10 );
 
-	if ( $check && $user_id && password_needs_rehash( $hash , PASSWORD_DEFAULT, [ 'cost' => $cost ] ) ) {
-		$hash = wp_set_password( $password, $user_id );
+		if( password_needs_rehash( $hash , PASSWORD_DEFAULT, [ 'cost' => $cost ] ) ) {
+			$hash = wp_set_password( $password, $user_id );
+		}
 	}
 
 	return apply_filters( 'check_password', $check, $password, $hash, $user_id );

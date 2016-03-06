@@ -36,6 +36,7 @@ function wp_check_password( $password, $hash, $user_id = '' ) {
 		$check = $wp_hasher->CheckPassword( $password, $hash );
 	}
 
+	// Rehash using new hash.
 	if ( $check && $user_id ) {
 		$cost = apply_filters( 'wp_hash_password_cost', 10 );
 

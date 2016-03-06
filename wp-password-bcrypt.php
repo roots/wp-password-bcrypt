@@ -34,6 +34,9 @@ function wp_check_password( $password, $hash, $user_id = '' ) {
 			}
 
 			$check = $wp_hasher->CheckPassword( $password, $hash );
+		// If the hash is still md5...
+		} elseif( 0 !== strpos( $hash, '$' ) ) {
+			$check = hash_equals( $hash, md5( $password ) );
 		}
 	}
 

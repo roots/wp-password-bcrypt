@@ -39,7 +39,7 @@ function wp_check_password( $password, $hash, $user_id = '' ) {
 	if ( $check && $user_id ) {
 		$cost = apply_filters( 'wp_hash_password_cost', 10 );
 
-		if( password_needs_rehash( $hash , PASSWORD_DEFAULT, [ 'cost' => $cost ] ) ) {
+		if( password_needs_rehash( $hash, PASSWORD_DEFAULT, [ 'cost' => $cost ] ) ) {
 			$hash = wp_set_password( $password, $user_id );
 		}
 	}

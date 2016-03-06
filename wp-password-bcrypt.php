@@ -9,6 +9,8 @@
  * Licence:     MIT
  */
 
+require_once( plugin_dir_path( __FILE__ ) . 'includes/password.php' );
+
 /**
  * Check if user has entered correct password, supports bcrypt and pHash.
  *

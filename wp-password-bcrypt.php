@@ -23,8 +23,8 @@ function wp_check_password( $password, $hash, $user_id = '' ) {
 	$check = password_verify( $password, $hash );
 
 	if ( ! $check ) {
-		// If the hash is still portable hash...
-		if ( 0 === strpos( $hash, '$P$' ) ) {
+		// If the hash is still portable hash or phpBB3 hash...
+		if ( 0 === strpos( $hash, '$P$' ) || 0 === strpos( $hash, '$H$' ) ) {
 			global $wp_hasher;
 
 			if ( empty( $wp_hasher ) ) {

@@ -9,8 +9,6 @@
  * Licence:     MIT
  */
 
-const WP_OLD_HASH_PREFIX = '$P$';
-
 /**
  * Check if user has entered correct password, supports bcrypt and pHash.
  *
@@ -26,7 +24,7 @@ function wp_check_password( $password, $hash, $user_id = '' ) {
 
 	if ( ! $check ) {
 		// If the hash is still portable hash...
-		if ( 0 === strpos( $hash, WP_OLD_HASH_PREFIX ) ) {
+		if ( 0 === strpos( $hash, '$P$' ) ) {
 			global $wp_hasher;
 
 			if ( empty( $wp_hasher ) ) {

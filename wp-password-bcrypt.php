@@ -24,16 +24,19 @@ const WP_OLD_HASH_PREFIX = '$P$';
 function wp_check_password( $password, $hash, $user_id = '' ) {
 	$check = password_verify( $password, $hash );
 
-	if ( ! $check && strpos( $hash, WP_OLD_HASH_PREFIX ) === 0 ) {
-		global $wp_hasher;
+	if ( ! $check ) {
+		// If the hash is still portable hash...
+		if ( 0 === strpos( $hash, WP_OLD_HASH_PREFIX ) ) {
+			global $wp_hasher;
 
-		if ( empty( $wp_hasher ) ) {
-			require_once( ABSPATH . WPINC . '/class-phpass.php' );
+			if ( empty( $wp_hasher ) ) {
+				require_once( ABSPATH . WPINC . '/class-phpass.php' );
 
-			$wp_hasher = new PasswordHash( 8, true );
+				$wp_hasher = new PasswordHash( 8, true );
+			}
+
+			$check = $wp_hasher->CheckPassword( $password, $hash );
 		}
-
-		$check = $wp_hasher->CheckPassword( $password, $hash );
 	}
 
 	// Rehash using new hash.

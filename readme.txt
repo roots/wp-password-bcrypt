@@ -4,7 +4,7 @@ Donate link: http://www.extendwings.com/donate/
 Tags: security, hash, bcrypt, password
 Requires at least: 4.4.2
 Tested up to: 4.5-beta2
-Stable tag: 1.1
+Stable tag: 1.1.1
 License: MIT License
 License URI: https://opensource.org/licenses/MIT
 
@@ -49,6 +49,9 @@ No screen.
 
 == Changelog ==
 
+= 1.1.1 =
+* Misc: Improve readme.txt file format.
+
 = 1.1 =
 * Enhancement: Ready to future changes of PHP default hash algorithm. ([http://php.net/password_needs_rehash password_needs_rehash()])
 * Enhancement: Supports phpBB-style hash and plain MD5.
@@ -59,5 +62,5 @@ No screen.
 
 == Upgrade Notice ==
 
-= 1.0 =
+= 1.0-1.1.1 =
 None.

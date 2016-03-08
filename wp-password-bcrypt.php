@@ -5,7 +5,7 @@
  * Description: Replaces wp_hash_password and wp_check_password with PHP 5.5's password_hash and password_verify.
  * Author:      Daisuke Takahashi
  * Author URI:  https://www.extendwings.com
- * Version:     1.1
+ * Version:     1.1.1
  * Licence:     MIT
  */
 

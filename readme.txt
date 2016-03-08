@@ -45,6 +45,8 @@ As explained above, you don't want to disable this plugin once you've enabled it
 
 == Screenshots ==
 
+No screen.
+
 == Changelog ==
 
 = 1.1 =

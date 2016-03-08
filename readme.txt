@@ -1,4 +1,4 @@
-=== WP Password Bcrypt ===
+=== WP Password bcrypt ===
 Contributors: extendwings
 Donate link: http://www.extendwings.com/donate/
 Tags: security, hash, bcrypt, password

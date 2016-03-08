@@ -11,6 +11,7 @@
 
 require_once( plugin_dir_path( __FILE__ ) . 'includes/password.php' );
 
+if ( ! function_exists( 'wp_check_password' ) ) :
 /**
  * Check if user has entered correct password, supports bcrypt and pHash.
  *
@@ -53,7 +54,9 @@ function wp_check_password( $password, $hash, $user_id = '' ) {
 
 	return apply_filters( 'check_password', $check, $password, $hash, $user_id );
 }
+endif;
 
+if ( ! function_exists( 'wp_hash_password' ) ) :
 /**
  * Hash password using bcrypt
  *
@@ -65,7 +68,9 @@ function wp_hash_password( $password ) {
 
 	return password_hash( $password, PASSWORD_DEFAULT, [ 'cost' => $cost ] );
 }
+endif;
 
+if ( ! function_exists( 'wp_set_password' ) ) :
 /**
  * Set password using bcrypt
  *
@@ -94,3 +99,4 @@ function wp_set_password( $password, $user_id ) {
 
 	return $hash;
 }
+endif;

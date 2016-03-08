@@ -1,11 +1,11 @@
 <?php
 /**
  * Plugin Name: WP Password bcrypt
- * Plugin URI:  https://roots.io
+ * Plugin URI:  https://www.extendwings.com
  * Description: Replaces wp_hash_password and wp_check_password with PHP 5.5's password_hash and password_verify.
- * Author:      Roots
- * Author URI:  https://roots.io
  * Version:     1.0
+ * Author:      Daisuke Takahashi
+ * Author URI:  https://www.extendwings.com
  * Licence:     MIT
  */
 

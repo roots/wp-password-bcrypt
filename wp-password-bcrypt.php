@@ -7,6 +7,7 @@
  * Author URI:  https://www.extendwings.com
  * Version:     1.1.1
  * Licence:     MIT
+ * Network:     true
  */
 
 require_once( plugin_dir_path( __FILE__ ) . 'includes/password.php' );

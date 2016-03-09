@@ -96,6 +96,10 @@ As explained above, you don't want to disable this plugin once you've enabled it
 
 There are a [few plugins](https://en-gb.wordpress.org/plugins/search.php?q=bcrypt) that exist which enable bcrypt. This plugin is different because we bypass the `PasswordHash` class and the `phpass` library that WordPress core uses. This plugin uses PHP's built-in `password_hash` and `password_verify` functions directly to only support PHP 5.5+.
 
+**I already use Two-factor authentication and/or prevent brute-force login attempts. Does this plugin still help?**
+
+Better hashing functions like bcrypt serve a different purpose than Two-factor authentication, brute-force attempt protection, or anything which acts at the log in stage. Strong hashing functions are important if an attacker is able to get access to your database. They will make it much harder/practically impossible to determine the plain-text passwords from the hashes. Whereas with MD5, this is trivial. Tools/plugins to protect logging in are still important and should be used together with this plugin.
+
 ## Further Reading
 
 * `password_hash` [RFC](https://wiki.php.net/rfc/password_hash)

@@ -8,6 +8,7 @@ This plugin requires PHP >= 5.5.0 which introduced the built-in [`password_hash`
 ## Requirements
 
 * PHP >= 5.5.0
+* WordPress >= 4.4 (see https://core.trac.wordpress.org/ticket/33904)
 
 ## Installation
 

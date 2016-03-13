@@ -3,7 +3,7 @@ Contributors: extendwings
 Donate link: http://www.extendwings.com/donate/
 Tags: security, hash, bcrypt, password
 Requires at least: 4.4.2
-Tested up to: 4.5-beta2
+Tested up to: 4.5-beta3
 Stable tag: 1.1.1
 License: MIT License
 License URI: https://opensource.org/licenses/MIT

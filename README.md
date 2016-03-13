@@ -6,6 +6,7 @@ This plugin requires PHP >= 5.4.0.
 ## Requirements
 
 * PHP >= 5.4.0
+* WordPress >= 4.4 (see https://core.trac.wordpress.org/ticket/33904)
 
 ## Installation
 

@@ -4,7 +4,7 @@ Donate link: http://www.extendwings.com/donate/
 Tags: security, hash, bcrypt, password
 Requires at least: 4.4.2
 Tested up to: 4.5-beta3
-Stable tag: 1.1.1
+Stable tag: 1.1.2
 License: MIT License
 License URI: https://opensource.org/licenses/MIT
 
@@ -48,6 +48,10 @@ As explained above, you don't want to disable this plugin once you've enabled it
 No screen.
 
 == Changelog ==
+
+= 1.1.2 =
+* Bugfix: Avoid warning on plugin activation.
+* Misc: Restrict to network-activation only on multisite install.
 
 = 1.1.1 =
 * Misc: Improve readme.txt file format.

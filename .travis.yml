@@ -30,3 +30,5 @@ after_script:
 
 after_success:
     - bash <(curl -s https://codecov.io/bash) -f /tmp/wordpress/src/wp-content/plugins/password-bcrypt/build/logs/clover.xml || echo "Codecov did not collect coverage reports"
+    - curl -sSL https://scrutinizer-ci.com/ocular.phar -o ocular.phar
+    - php ocular.phar code-coverage:upload --format=php-clover /tmp/wordpress/src/wp-content/plugins/password-bcrypt/build/logs/clover.xml

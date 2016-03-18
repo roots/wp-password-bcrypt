@@ -29,4 +29,4 @@ after_script:
     - source $DEV_LIB_PATH/travis.after_script.sh
 
 after_success:
-    - bash <(curl -s https://codecov.io/bash) -f /tmp/wordpress/src/wp-content/plugins/GlotPress-WP/build/logs/clover.xml || echo "Codecov did not collect coverage reports"
+    - bash <(curl -s https://codecov.io/bash) -f /tmp/wordpress/src/wp-content/plugins/password-bcrypt/build/logs/clover.xml || echo "Codecov did not collect coverage reports"

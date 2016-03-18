@@ -32,7 +32,7 @@ class Tests_WP_Password_Bcrypt extends WP_UnitTestCase {
 	 * Switch back to previous user.
 	 */
 	private function use_previous_user() {
-		wp_set_current_user( $user->old_user_id );
+		wp_set_current_user( $this->old_user_id );
 
 		return wp_get_current_user();
 	}

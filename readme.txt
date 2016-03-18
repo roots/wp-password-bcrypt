@@ -57,14 +57,14 @@ No screen.
 * Misc: Improve readme.txt file format.
 
 = 1.1 =
-* Enhancement: Ready to future changes of PHP default hash algorithm. ([http://php.net/password_needs_rehash password_needs_rehash()])
+* Enhancement: Ready to future changes of PHP default hash algorithm. ([password_needs_rehash()](http://php.net/password_needs_rehash))
 * Enhancement: Supports phpBB-style hash and plain MD5.
-* Enhancement: Supports PHP 5.4, thanks to [https://github.com/ircmaxell/password_compat/ ircmaxell/password_compat].
+* Enhancement: Supports PHP 5.4, thanks to [ircmaxell/password_compat](https://github.com/ircmaxell/password_compat/).
 
 = 1.0 =
 * Initial Release by Roots team on GitHub.
 
 == Upgrade Notice ==
 
-= 1.0-1.1.1 =
+= 1.0-1.1.2 =
 None.

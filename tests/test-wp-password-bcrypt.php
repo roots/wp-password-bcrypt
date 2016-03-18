@@ -18,6 +18,26 @@ class Tests_WP_Password_Bcrypt extends WP_UnitTestCase {
 	const HASH_MD5 = '5f4dcc3b5aa765d61d8327deb882cf99';
 
 	/**
+	 * Create and switch to dummy user.
+	 */
+	private function use_dummy_user() {
+		$user = new WP_User( $this->factory->user->create() );
+		$this->old_user_id = get_current_user_id();
+		wp_set_current_user( $user->ID );
+
+		return $user;
+	}
+
+	/**
+	 * Switch back to previous user.
+	 */
+	private function use_previous_user() {
+		wp_set_current_user( $user->old_user_id );
+
+		return wp_get_current_user();
+	}
+
+	/**
 	 * Check that constants is defined.
 	 */
 	function test_constant_defined() {

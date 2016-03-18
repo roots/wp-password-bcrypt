@@ -30,9 +30,9 @@ class Tests_WP_Password_Bcrypt extends WP_UnitTestCase {
 	 * Test wp_check_password() behavior.
 	 */
 	function test_wp_check_password() {
-		$this->assertSame( wp_check_password( self::PASSWORD, self::HASH_BCRYPT ) );
-		$this->assertSame( wp_check_password( self::PASSWORD, self::PORTABLE ) );
-		$this->assertSame( wp_check_password( self::PASSWORD, self::PHPBB ) );
-		$this->assertSame( wp_check_password( self::PASSWORD, self::MD5 ) );
+		$this->assertTrue( wp_check_password( self::PASSWORD, self::HASH_BCRYPT ) );
+		$this->assertTrue( wp_check_password( self::PASSWORD, self::PORTABLE ) );
+		$this->assertTrue( wp_check_password( self::PASSWORD, self::PHPBB ) );
+		$this->assertTrue( wp_check_password( self::PASSWORD, self::MD5 ) );
 	}
 }

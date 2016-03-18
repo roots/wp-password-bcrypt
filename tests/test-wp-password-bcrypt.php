@@ -47,7 +47,7 @@ class Tests_WP_Password_Bcrypt extends WP_UnitTestCase {
 	}
 
 	/**
-	 * Test wp_check_password() behavior.
+	 * Test wp_check_password() behavior without $user_id.
 	 */
 	function test_wp_check_password() {
 		$this->assertTrue( wp_check_password( self::PASSWORD, self::HASH_BCRYPT ) );
@@ -63,5 +63,19 @@ class Tests_WP_Password_Bcrypt extends WP_UnitTestCase {
 		$hash = wp_hash_password( self::PASSWORD );
 
 		$this->assertTrue( wp_check_password( self::PASSWORD, $hash ) );
+	}
+
+	/**
+	 * Test wp_check_password() behavior with $user_id.
+	 */
+	function test_wp_check_password_rehash() {
+		$user = $this->use_dummy_user();
+
+		$this->assertTrue( wp_check_password( self::PASSWORD, self::HASH_BCRYPT, $user->ID ) );
+		$this->assertTrue( wp_check_password( self::PASSWORD, self::HASH_PORTABLE, $user->ID ) );
+		$this->assertTrue( wp_check_password( self::PASSWORD, self::HASH_PHPBB, $user->ID ) );
+		$this->assertTrue( wp_check_password( self::PASSWORD, self::HASH_MD5, $user->ID ) );
+
+		$user = $this->use_previous_user();
 	}
 }

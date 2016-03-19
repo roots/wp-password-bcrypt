@@ -1,6 +1,8 @@
 # wp-password-bcrypt
 wp-password-bcrypt is a WordPress plugin to replace WP's outdated and insecure MD5-based password hashing with the modern and secure [bcrypt](https://en.wikipedia.org/wiki/Bcrypt).
 
+[![Build Status](https://travis-ci.org/shield-9/wp-password-bcrypt.svg?branch=master)](https://travis-ci.org/shield-9/wp-password-bcrypt) [![codecov.io](https://codecov.io/github/shield-9/wp-password-bcrypt/coverage.svg?branch=develop)](https://codecov.io/github/shield-9/wp-password-bcrypt?branch=develop) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/shield-9/wp-password-bcrypt/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/shield-9/wp-password-bcrypt/?branch=master)
+
 This plugin requires PHP >= 5.4.0.
 
 ## Requirements

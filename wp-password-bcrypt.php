@@ -1,76 +1,99 @@
 <?php
 /**
  * Plugin Name: WP Password bcrypt
- * Plugin URI:  https://roots.io
+ * Plugin URI:  https://www.extendwings.com
  * Description: Replaces wp_hash_password and wp_check_password with PHP 5.5's password_hash and password_verify.
- * Author:      Roots
- * Author URI:  https://roots.io
- * Version:     1.0
+ * Author:      Daisuke Takahashi
+ * Author URI:  https://www.extendwings.com
+ * Version:     1.1.2
  * Licence:     MIT
+ * Network:     true
+ *
+ * @package WP_Password_Bcrypt
  */
 
-const WP_OLD_HASH_PREFIX = '$P$';
+require_once( plugin_dir_path( __FILE__ ) . 'includes/password.php' );
 
-/**
- * Check if user has entered correct password, supports bcrypt and pHash.
- *
- * @param string $password Plaintext password
- * @param string $hash Hash of password
- * @param int|string $userId ID of user to whom password belongs
- * @return mixed|void
- *
- * @SuppressWarnings(PHPMD.CamelCaseVariableName) $wp_hasher is a global variable, we cannot change its name
- */
-function wp_check_password($password, $hash, $userId = '')
-{
-    if (strpos($hash, WP_OLD_HASH_PREFIX) === 0) {
-        global $wp_hasher;
+if ( ! function_exists( 'wp_check_password' ) ) :
+	/**
+	 * Check if user has entered correct password, supports bcrypt and pHash.
+	 *
+	 * @param string     $password Plaintext password.
+	 * @param string     $hash Hash of password.
+	 * @param int|string $user_id User ID.
+	 * @return mixed|void
+	 */
+	function wp_check_password( $password, $hash, $user_id = '' ) {
+		$check = password_verify( $password, $hash );
 
-        if (empty($wp_hasher)) {
-            require_once(ABSPATH . WPINC . '/class-phpass.php');
+		if ( ! $check ) {
+			if ( 0 === strpos( $hash, '$P$' ) || 0 === strpos( $hash, '$H$' ) ) { // If the hash is still portable hash or phpBB3 hash...
+				global $wp_hasher;
 
-            $wp_hasher = new PasswordHash(8, true);
-        }
+				if ( empty( $wp_hasher ) ) {
+					require_once( ABSPATH . WPINC . '/class-phpass.php' );
 
-        $check = $wp_hasher->CheckPassword($password, $hash);
+					$wp_hasher = new PasswordHash( 8, true ); // WPCS: override ok.
+				}
 
-        if ($check && $userId) {
-            $hash = wp_set_password($password, $userId);
-        }
-    }
+				$check = $wp_hasher->CheckPassword( $password, $hash );
+			} elseif ( 0 !== strpos( $hash, '$' ) ) { // If the hash is still md5...
+				$check = hash_equals( $hash, md5( $password ) );
+			}
+		}
 
-    $check = password_verify($password, $hash);
-    return apply_filters('check_password', $check, $password, $hash, $userId);
-}
+		if ( $check && $user_id ) { // Rehash using new hash.
+			$cost = apply_filters( 'wp_hash_password_cost', 10 );
 
-/**
- * Hash password using bcrypt
- *
- * @param string $password Plaintext password
- * @return bool|string
- */
-function wp_hash_password($password)
-{
-    $options = apply_filters('wp_hash_password_options', []);
-    return password_hash($password, PASSWORD_DEFAULT, $options);
-}
+			if ( password_needs_rehash( $hash, PASSWORD_DEFAULT, [ 'cost' => $cost ] ) ) {
+				$hash = wp_set_password( $password, $user_id );
+			}
+		}
 
-/**
- * Set password using bcrypt
- *
- * @param string $password Plaintext password
- * @param int $userId ID of user to whom password belongs
- * @return bool|string
- */
-function wp_set_password($password, $userId)
-{
-    /** @var \wpdb $wpdb */
-    global $wpdb;
+		return apply_filters( 'check_password', $check, $password, $hash, $user_id );
+	}
+endif;
 
-    $hash = wp_hash_password($password);
+if ( ! function_exists( 'wp_hash_password' ) ) :
+	/**
+	 * Hash password using bcrypt
+	 *
+	 * @param string $password Plaintext password.
+	 * @return bool|string
+	 */
+	function wp_hash_password( $password ) {
+		$cost = apply_filters( 'wp_hash_password_cost', 10 );
 
-    $wpdb->update($wpdb->users, ['user_pass' => $hash, 'user_activation_key' => ''], ['ID' => $userId]);
-    wp_cache_delete($userId, 'users');
+		return password_hash( $password, PASSWORD_DEFAULT, [ 'cost' => $cost ] );
+	}
+endif;
 
-    return $hash;
-}
+if ( ! function_exists( 'wp_set_password' ) ) :
+	/**
+	 * Set password using bcrypt
+	 *
+	 * @param string $password Plaintext password.
+	 * @param int    $user_id User ID.
+	 * @return bool|string
+	 */
+	function wp_set_password( $password, $user_id ) {
+		global $wpdb;
+
+		$hash = wp_hash_password( $password );
+
+		$wpdb->update(
+			$wpdb->users,
+			[
+				'user_pass'           => $hash,
+				'user_activation_key' => '',
+			],
+			[
+				'ID' => $user_id,
+			]
+		);
+
+		wp_cache_delete( $user_id, 'users' );
+
+		return $hash;
+	}
+endif;

@@ -1,0 +1,36 @@
+<phpunit
+	bootstrap="dev-lib/phpunit-plugin-bootstrap.php"
+	backupGlobals="false"
+	colors="true"
+	convertErrorsToExceptions="true"
+	convertNoticesToExceptions="true"
+	convertWarningsToExceptions="true"
+	>
+	<php>
+		<const name="WP_TEST_VIP_QUICKSTART_ACTIVATED_PLUGINS" value="jetpack/jetpack.php,media-explorer/media-explorer.php,writing-helper/writing-helper.php,mrss/mrss.php,wordpress-importer/wordpress-importer.php,keyring/keyring.php,polldaddy/polldaddy.php" />
+		<const name="WPCOM_VIP_DISABLE_REMOTE_REQUEST_ERROR_REPORTING" value="1" />
+		<const name="WP_TEST_ACTIVATED_PLUGINS" value="" /> <!-- this list is used if not on VIP Quickstart -->
+	</php>
+	<testsuites>
+		<testsuite>
+			<directory prefix="test-" suffix=".php">./tests/</directory>
+		</testsuite>
+	</testsuites>
+
+	<filter>
+		<whitelist processUncoveredFilesFromWhitelist="false">
+			<directory suffix=".php">./</directory>
+			<exclude>
+				<directory suffix=".php">./dev-lib</directory>
+				<directory suffix=".php">./node_modules</directory>
+				<directory suffix=".php">./tests</directory>
+				<directory suffix=".php">./vendor</directory>
+				<directory suffix=".php">./includes</directory>
+			</exclude>
+		</whitelist>
+	</filter>
+
+	<logging>
+		<log type="coverage-clover" target="build/logs/clover.xml"/>
+	</logging>
+</phpunit>

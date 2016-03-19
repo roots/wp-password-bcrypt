@@ -1,26 +1,16 @@
 # wp-password-bcrypt
-[![Build Status](https://travis-ci.org/roots/wp-password-bcrypt.svg)](https://travis-ci.org/roots/wp-password-bcrypt)
-
 wp-password-bcrypt is a WordPress plugin to replace WP's outdated and insecure MD5-based password hashing with the modern and secure [bcrypt](https://en.wikipedia.org/wiki/Bcrypt).
 
-This plugin requires PHP >= 5.5.0 which introduced the built-in [`password_hash`](http://php.net/manual/en/function.password-hash.php) and [`password_verify`](http://php.net/manual/en/function.password-verify.php) functions.
+[![Build Status](https://travis-ci.org/shield-9/wp-password-bcrypt.svg?branch=master)](https://travis-ci.org/shield-9/wp-password-bcrypt) [![codecov.io](https://codecov.io/github/shield-9/wp-password-bcrypt/coverage.svg?branch=master)](https://codecov.io/github/shield-9/wp-password-bcrypt?branch=master) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/shield-9/wp-password-bcrypt/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/shield-9/wp-password-bcrypt/?branch=master)
 
-See [Improving WordPress Password Security](https://roots.io/improving-wordpress-password-security/) for more background on this plugin and the password hashing issue.
+This plugin requires PHP >= 5.4.0.
 
 ## Requirements
 
-* PHP >= 5.5.0
+* PHP >= 5.4.0
 * WordPress >= 4.4 (see https://core.trac.wordpress.org/ticket/33904)
 
 ## Installation
-
-This plugin is a Composer library so it can be installed in a few ways:
-
-#### Composer Autoloaded
-
-`composer require roots/wp-password-bcrypt`
-
-`wp-password-bcrypt.php` file will be automatically autoloaded by Composer and it *won't* appear in your plugins.
 
 #### Manually as a must-use plugin
 
@@ -44,28 +34,6 @@ What's wrong with MD5? Really simply: it's too cheap and fast to generate crypto
 
 WordPress did at least one good thing: they made `wp_check_password` and `wp_hash_password` [pluggable](https://codex.wordpress.org/Pluggable_Functions) functions. This means we can define these functions in a plugin and "override" the default ones.
 
-This plugin plugs in 3 functions:
-
-* `wp_check_password`
-* `wp_hash_password`
-* `wp_set_password`
-
-#### `wp_hash_password`
-
-This function is the simplest. This plugin simply calls `password_hash` instead of WP's default password hasher.
-The `wp_hash_password_options` filter is available to set the [options](http://php.net/manual/en/function.password-hash.php) that `password_hash` can accept.
-
-#### `wp_check_password`
-
-At its core, this function just calls `password_verify` instead of the default.
-However, it also checks if a user's password was *previously* hashed with the old MD5-based hasher and re-hashes it with bcrypt. This means you can still install this plugin on an existing site and everything will work seamlessly.
-
-The `check_password` filter is available just like the default WP function.
-
-#### `wp_set_password`
-
-This function is included here verbatim but with the addition of returning the hash. The default WP function does not return anything which means you end up hashing it twice for no reason.
-
 ## FAQ
 
 **What happens to existing passwords when I install the plugin?**
@@ -78,17 +46,9 @@ Right now it's beyond the scope of the plugin. We want to keep it simple and str
 
 **What happens if I remove/deactivate the plugin?**
 
-Magically, everything still works. See this [comment](https://github.com/roots/wp-password-bcrypt/issues/7#issuecomment-190919884) for more details.
+If you are using PHP 5.4, it will break and you may need to reset password. But if you are usgin PHP 5.5+, magically, everything still works. See this [comment](https://github.com/roots/wp-password-bcrypt/issues/7#issuecomment-190919884) for more details.
 
 Any existing bcrypt hashed passwords will remain that way. Any new users or users resetting a password will get a new MD5 hashed password.
-
-**Why aren't you using the password_compat library so this works back to PHP 5.3.7?**
-
-The [password_compact](https://github.com/ircmaxell/password_compat) library is great if you really need it. But the Roots team adovates using supported versions of PHP which of now (March 2016) is 5.5 and above. Part of security is using a version of PHP that still gets security patches so we won't actively do something to support old unsupported versions of PHP.
-
-**Why doesn't this plugin show up in the admin?**
-
-If you're using Composer, then the `wp-password-bcrypt.php` file is automatically autoloaded. It's not treated as a true WordPress plugin since the package type is not set to `wordpress-muplugin` so it won't show up in the plugin list.
 
 **What's wrong with using this as a plugin instead of a must-use plugin?**
 
@@ -98,10 +58,6 @@ As explained above, you don't want to disable this plugin once you've enabled it
 
 There are a [few plugins](https://en-gb.wordpress.org/plugins/search.php?q=bcrypt) that exist which enable bcrypt. This plugin is different because we bypass the `PasswordHash` class and the `phpass` library that WordPress core uses. This plugin uses PHP's built-in `password_hash` and `password_verify` functions directly to only support PHP 5.5+.
 
-**I already use Two-factor authentication and/or prevent brute-force login attempts. Does this plugin still help?**
-
-Better hashing functions like bcrypt serve a different purpose than Two-factor authentication, brute-force attempt protection, or anything which acts at the log in stage. Strong hashing functions are important if an attacker is able to get access to your database. They will make it much harder/practically impossible to determine the plain-text passwords from the hashes. Whereas with MD5, this is trivial. Tools/plugins to protect logging in are still important and should be used together with this plugin.
-
 ## Further Reading
 
 * `password_hash` [RFC](https://wiki.php.net/rfc/password_hash)
@@ -110,19 +66,4 @@ Better hashing functions like bcrypt serve a different purpose than Two-factor a
 
 ## Contributors
 
-This plugin is based on a [Gist](https://gist.github.com/Einkoro/11078301) by [@Einkoro](https://github.com/Einkoro).
-
-It has been modified and packaged by the Roots team.
-
-## Contributing
-
-Contributions are welcome from everyone. We have [contributing guidelines](CONTRIBUTING.md) to help you get started.
-
-## Community
-
-Keep track of development and community news.
-
-* Participate on the [Roots Discourse](https://discourse.roots.io/)
-* Follow [@rootswp on Twitter](https://twitter.com/rootswp)
-* Read and subscribe to the [Roots Blog](https://roots.io/blog/)
-* Subscribe to the [Roots Newsletter](https://roots.io/subscribe/)
+This plugin is based on a [Gist](https://gist.github.com/Einkoro/11078301) by [@Einkoro](https://github.com/Einkoro) and a [plugin](https://github.com/roots/wp-password-bcrypt) by the Roots team.

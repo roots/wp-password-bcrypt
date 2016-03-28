@@ -112,7 +112,7 @@ Better hashing functions like bcrypt serve a different purpose than Two-factor a
 
 This plugin is based on a [Gist](https://gist.github.com/Einkoro/11078301) by [@Einkoro](https://github.com/Einkoro).
 
-It has been modified and packaged by the Roots team.
+It has been modified and packaged by the Roots team. Jan Pingel (@Einkoro) has granted his permission for us to redistribute his original BSD-licensed code to an MIT license.
 
 ## Contributing
 

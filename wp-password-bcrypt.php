@@ -2,7 +2,7 @@
 /**
  * Plugin Name: WP Password bcrypt
  * Plugin URI:  https://roots.io
- * Description: Replaces wp_hash_password and wp_check_password with PHP 5.5's password_hash and password_verify.
+ * Description: Replaces wp_hash_password and wp_check_password with PHP 5.3's password_hash and password_verify.
  * Author:      Roots
  * Author URI:  https://roots.io
  * Version:     1.0
@@ -51,7 +51,7 @@ function wp_check_password($password, $hash, $userId = '')
  */
 function wp_hash_password($password)
 {
-    $options = apply_filters('wp_hash_password_options', []);
+    $options = apply_filters('wp_hash_password_options', array());
     return password_hash($password, PASSWORD_DEFAULT, $options);
 }
 
@@ -69,7 +69,7 @@ function wp_set_password($password, $userId)
 
     $hash = wp_hash_password($password);
 
-    $wpdb->update($wpdb->users, ['user_pass' => $hash, 'user_activation_key' => ''], ['ID' => $userId]);
+    $wpdb->update($wpdb->users, array('user_pass' => $hash, 'user_activation_key' => ''), array('ID' => $userId));
     wp_cache_delete($userId, 'users');
 
     return $hash;

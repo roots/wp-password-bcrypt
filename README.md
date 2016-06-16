@@ -3,13 +3,13 @@
 
 wp-password-bcrypt is a WordPress plugin to replace WP's outdated and insecure MD5-based password hashing with the modern and secure [bcrypt](https://en.wikipedia.org/wiki/Bcrypt).
 
-This plugin requires PHP >= 5.5.0 which introduced the built-in [`password_hash`](http://php.net/manual/en/function.password-hash.php) and [`password_verify`](http://php.net/manual/en/function.password-verify.php) functions.
+This plugin requires PHP >= 5.3 which introduced the built-in [`password_hash`](http://php.net/manual/en/function.password-hash.php) and [`password_verify`](http://php.net/manual/en/function.password-verify.php) functions.
 
 See [Improving WordPress Password Security](https://roots.io/improving-wordpress-password-security/) for more background on this plugin and the password hashing issue.
 
 ## Requirements
 
-* PHP >= 5.5.0
+* PHP >= 5.3
 * WordPress >= 4.4 (see https://core.trac.wordpress.org/ticket/33904)
 
 ## Installation
@@ -82,10 +82,6 @@ Magically, everything still works. See this [comment](https://github.com/roots/w
 
 Any existing bcrypt hashed passwords will remain that way. Any new users or users resetting a password will get a new MD5 hashed password.
 
-**Why aren't you using the password_compat library so this works back to PHP 5.3.7?**
-
-The [password_compact](https://github.com/ircmaxell/password_compat) library is great if you really need it. But the Roots team adovates using supported versions of PHP which of now (March 2016) is 5.5 and above. Part of security is using a version of PHP that still gets security patches so we won't actively do something to support old unsupported versions of PHP.
-
 **Why doesn't this plugin show up in the admin?**
 
 If you're using Composer, then the `wp-password-bcrypt.php` file is automatically autoloaded. It's not treated as a true WordPress plugin since the package type is not set to `wordpress-muplugin` so it won't show up in the plugin list.
@@ -96,7 +92,7 @@ As explained above, you don't want to disable this plugin once you've enabled it
 
 **How is this different than other plugins which already exist?**
 
-There are a [few plugins](https://en-gb.wordpress.org/plugins/search.php?q=bcrypt) that exist which enable bcrypt. This plugin is different because we bypass the `PasswordHash` class and the `phpass` library that WordPress core uses. This plugin uses PHP's built-in `password_hash` and `password_verify` functions directly to only support PHP 5.5+.
+There are a [few plugins](https://en-gb.wordpress.org/plugins/search.php?q=bcrypt) that exist which enable bcrypt. This plugin is different because we bypass the `PasswordHash` class and the `phpass` library that WordPress core uses. This plugin uses PHP's built-in `password_hash` and `password_verify` functions directly to only support PHP 5.3+.
 
 **I already use Two-factor authentication and/or prevent brute-force login attempts. Does this plugin still help?**
 

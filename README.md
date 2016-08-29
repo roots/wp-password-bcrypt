@@ -1,5 +1,7 @@
 # wp-password-bcrypt
-[![Build Status](https://travis-ci.org/roots/wp-password-bcrypt.svg)](https://travis-ci.org/roots/wp-password-bcrypt)
+[![Packagist](https://img.shields.io/packagist/v/roots/wp-password-bcrypt.svg?style=flat-square)](https://packagist.org/packages/roots/wp-password-bcrypt)
+[![Packagist Downloads](https://img.shields.io/packagist/dt/roots/wp-password-bcrypt.svg?style=flat-square)](https://packagist.org/packages/roots/wp-password-bcrypt)
+[![Build Status](https://img.shields.io/travis/roots/wp-password-bcrypt.svg?style=flat-square)](https://travis-ci.org/roots/wp-password-bcrypt)
 
 wp-password-bcrypt is a WordPress plugin to replace WP's outdated and insecure MD5-based password hashing with the modern and secure [bcrypt](https://en.wikipedia.org/wiki/Bcrypt).
 

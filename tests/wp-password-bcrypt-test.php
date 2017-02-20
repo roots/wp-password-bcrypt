@@ -23,9 +23,9 @@ class WpPasswordBcryptTest extends PHPUnit_Framework_TestCase
 
         global $wpdb;
 
-        $wpdb = M::mock('wpdb');
+        $wpdb = M::mock( 'wpdb' );
         $wpdb
-            ->shouldReceive('update')
+            ->shouldReceive( 'update' )
             ->withAnyArgs()
             ->andReturnNull();
         $wpdb->users = 'wp_users';
@@ -43,18 +43,18 @@ class WpPasswordBcryptTest extends PHPUnit_Framework_TestCase
     {
         $userId = 1;
 
-        Functions::expect('wp_cache_delete')->once()->andReturn(true);
+        Functions::expect( 'wp_cache_delete' )->once()->andReturn( true );
 
-        $bcrypt_hash = wp_set_password(self::PASSWORD, $userId);
-        $this->assertTrue(password_verify(self::PASSWORD, $bcrypt_hash));
+        $bcrypt_hash = wp_set_password( self::PASSWORD, $userId );
+        $this->assertTrue( password_verify( self::PASSWORD, $bcrypt_hash ) );
     }
 
     /** @test */
     public function hashing_password_applies_filter()
     {
-        wp_hash_password(self::PASSWORD);
+        wp_hash_password( self::PASSWORD );
 
-        Filters::expectApplied('wp_hash_password_options')->andReturn(self::HASH_BCRYPT);
+        Filters::expectApplied( 'wp_hash_password_options' )->andReturn( self::HASH_BCRYPT );
     }
 
     /** @test */
@@ -62,11 +62,11 @@ class WpPasswordBcryptTest extends PHPUnit_Framework_TestCase
     {
         $bad_hash = 'randomhash';
 
-        $bcrypt_check = wp_check_password(self::PASSWORD, self::HASH_BCRYPT);
-        $bad_check = wp_check_password(self::PASSWORD, $bad_hash);
+        $bcrypt_check = wp_check_password( self::PASSWORD, self::HASH_BCRYPT );
+        $bad_check = wp_check_password( self::PASSWORD, $bad_hash );
 
-        $this->assertTrue($bcrypt_check);
-        $this->assertFalse($bad_check);
+        $this->assertTrue( $bcrypt_check );
+        $this->assertFalse( $bad_check );
     }
 
     /** @test */
@@ -77,16 +77,16 @@ class WpPasswordBcryptTest extends PHPUnit_Framework_TestCase
         /** @var int $userId This is necessary to trigger wp_set_password() */
         $userId = 1;
 
-        $wp_hasher = M::mock('PasswordHash');
+        $wp_hasher = M::mock( 'PasswordHash' );
         $wp_hasher
-            ->shouldReceive('CheckPassword')
+            ->shouldReceive( 'CheckPassword' )
             ->once()
-            ->with(self::PASSWORD, self::HASH_PHPASS)
-            ->andReturn(true);
+            ->with( self::PASSWORD, self::HASH_PHPASS )
+            ->andReturn( true );
 
-        Functions::expect('wp_cache_delete')->once()->andReturn(true);
+        Functions::expect( 'wp_cache_delete' )->once()->andReturn( true );
 
-        $phpass_check = wp_check_password(self::PASSWORD, self::HASH_PHPASS, $userId);
-        $this->assertTrue($phpass_check);
+        $phpass_check = wp_check_password( self::PASSWORD, self::HASH_PHPASS, $userId );
+        $this->assertTrue( $phpass_check );
     }
 }

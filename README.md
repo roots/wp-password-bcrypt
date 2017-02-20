@@ -86,7 +86,7 @@ Any existing bcrypt hashed passwords will remain that way. Any new users or user
 
 **Why aren't you using the password_compat library so this works back to PHP 5.3.7?**
 
-The [password_compact](https://github.com/ircmaxell/password_compat) library is great if you really need it. But the Roots team adovates using supported versions of PHP which of now (March 2016) is 5.5 and above. Part of security is using a version of PHP that still gets security patches so we won't actively do something to support old unsupported versions of PHP.
+The [password_compact](https://github.com/ircmaxell/password_compat) library is great if you really need it. But the Roots team advocates using supported versions of PHP which of now (March 2016) is 5.5 and above. Part of security is using a version of PHP that still gets security patches so we won't actively do something to support old unsupported versions of PHP.
 
 **Why doesn't this plugin show up in the admin?**
 

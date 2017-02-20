@@ -51,8 +51,8 @@ function wp_check_password($password, $hash, $userId = '')
  */
 function wp_hash_password($password)
 {
-    $options = apply_filters('wp_hash_password_options', []);
-    return password_hash($password, PASSWORD_DEFAULT, $options);
+    $cost = apply_filters('wp_hash_password_cost', 10);
+    return password_hash($password, PASSWORD_DEFAULT, ['cost' => $cost]);
 }
 
 /**

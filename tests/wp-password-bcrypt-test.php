@@ -50,11 +50,11 @@ class WpPasswordBcryptTest extends PHPUnit_Framework_TestCase
     }
 
     /** @test */
-    public function hashing_password_applies_filter()
+    public function hashing_password_applies_cost_filter()
     {
         wp_hash_password(self::PASSWORD);
 
-        Filters::expectApplied('wp_hash_password_options')->andReturn(self::HASH_BCRYPT);
+        Filters::expectApplied('wp_hash_password_cost')->andReturn(self::HASH_BCRYPT);
     }
 
     /** @test */

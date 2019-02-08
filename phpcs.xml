@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
-<ruleset name="Roots">
-  <description>Roots Coding Standards</description>
+<ruleset name="WP Password bcrypt">
+  <description>Strict WordPress Coding Standards</description>
 
   <!-- Scan these files -->
   <file>wp-password-bcrypt.php</file>
@@ -11,6 +11,11 @@
   <!-- Show sniff codes in all reports -->
   <arg value="s"/>
 
-  <!-- Use PSR-2 as a base -->
-  <rule ref="PSR2"/>
+  <!-- Required as we actually need to override $wp_hasher -->
+  <rule ref="WordPress.WP.GlobalVariablesOverride.Prohibited">
+    <exclude-pattern>wp-password-bcrypt\.php</exclude-pattern>
+  </rule>
+
+  <!-- Use WordPress Extra as a base -->
+  <rule ref="WordPress-Extra"/>
 </ruleset>

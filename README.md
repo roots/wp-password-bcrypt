@@ -1,8 +1,46 @@
-# wp-password-bcrypt
-[![Packagist](https://img.shields.io/packagist/v/roots/wp-password-bcrypt.svg?style=flat-square)](https://packagist.org/packages/roots/wp-password-bcrypt)
-[![Packagist Downloads](https://img.shields.io/packagist/dt/roots/wp-password-bcrypt.svg?style=flat-square)](https://packagist.org/packages/roots/wp-password-bcrypt)
-[![Build Status](https://img.shields.io/travis/roots/wp-password-bcrypt.svg?style=flat-square)](https://travis-ci.org/roots/wp-password-bcrypt)
-[![Follow Roots](https://img.shields.io/twitter/follow/rootswp.svg?style=flat-square&color=1da1f2)](https://twitter.com/rootswp)
+<p align="center">
+  <img alt="wp-password-bcrypt" src="https://cdn.roots.io/app/uploads/logo-roots.svg" width="150">
+</p>
+
+<p align="center">
+  <img alt="MIT License" src="https://img.shields.io/github/license/roots/wp-password-bcrypt?color=%23525ddc&style=flat-square" />
+
+  <a href="https://packagist.org/packages/roots/wp-password-bcrypt">
+    <img alt="Packagist" src="https://img.shields.io/packagist/v/roots/wp-password-bcrypt.svg?style=flat-square" />
+  </a>
+
+  <a href="https://packagist.org/packages/roots/wp-password-bcrypt">
+    <img alt="Packagist Downloads" src="https://img.shields.io/packagist/dt/roots/wp-password-bcrypt.svg?style=flat-square)" />
+  </a>
+
+  <img alt="Build Status" src="https://github.com/roots/wp-password-bcrypt/workflows/Compatibility%20Checks/badge.svg" />
+
+  <a href="https://twitter.com/rootswp">
+    <img alt="Follow Roots" src="https://img.shields.io/twitter/follow/rootswp.svg?style=flat-square&color=1da1f2" />
+  </a>
+</p>
+
+<p align="center">
+  <strong>Drop-in bcrypt password hashing for WordPress</strong>
+  <br />
+  Built with ❤️
+</p>
+
+## Supporting
+
+**wp-password-bcrypt** is an open source project and completely free to use.
+
+However, the amount of effort needed to maintain and develop new features and products within the Roots ecosystem is not sustainable without proper financial backing. If you have the capability, please consider donating using the links below:
+
+<div align="center">
+
+[![Sponsor on GitHub](https://img.shields.io/static/v1?label=sponsor&message=%E2%9D%A4&logo=GitHub)](https://github.com/sponsors/roots)
+[![Donate via Patreon](https://img.shields.io/badge/donate-patreon-orange.svg?style=flat-square&logo=patreon")](https://www.patreon.com/rootsdev)
+[![Donate via PayPal](https://img.shields.io/badge/donate-paypal-blue.svg?style=flat-square&logo=paypal)](https://www.paypal.me/rootsdev)
+
+</div>
+
+## Overview
 
 wp-password-bcrypt is a WordPress plugin to replace WP's outdated and insecure MD5-based password hashing with the modern and secure [bcrypt](https://en.wikipedia.org/wiki/Bcrypt).
 
@@ -12,8 +50,8 @@ See [Improving WordPress Password Security](https://roots.io/improving-wordpress
 
 ## Requirements
 
-* PHP >= 5.5.0
-* WordPress >= 4.4 (see https://core.trac.wordpress.org/ticket/33904)
+- PHP >= 5.5.0
+- WordPress >= 4.4 (see https://core.trac.wordpress.org/ticket/33904)
 
 ## Installation
 
@@ -23,7 +61,7 @@ This plugin is a Composer library so it can be installed in a few ways:
 
 `composer require roots/wp-password-bcrypt`
 
-`wp-password-bcrypt.php` file will be automatically autoloaded by Composer and it *won't* appear in your plugins.
+`wp-password-bcrypt.php` file will be automatically autoloaded by Composer and it _won't_ appear in your plugins.
 
 #### Manually as a must-use plugin
 
@@ -37,9 +75,9 @@ WordPress still uses an MD5 based password hashing scheme. They are effectively 
 
 This is a [known](https://core.trac.wordpress.org/ticket/21022) problem which WordPress has ignored for over 4 years now. Not only does WordPress set the insecure default of MD5, they don't do any of the following:
 
-* document this issue
-* provide instructions on how to fix it and make it more secure
-* notify users on newer PHP versions that they *could* be more secure
+- document this issue
+- provide instructions on how to fix it and make it more secure
+- notify users on newer PHP versions that they _could_ be more secure
 
 What's wrong with MD5? Really simply: it's too cheap and fast to generate cryptographically secure hashes.
 
@@ -49,9 +87,9 @@ WordPress did at least one good thing: they made `wp_check_password` and `wp_has
 
 This plugin plugs in 3 functions:
 
-* `wp_check_password`
-* `wp_hash_password`
-* `wp_set_password`
+- `wp_check_password`
+- `wp_hash_password`
+- `wp_set_password`
 
 #### `wp_hash_password`
 
@@ -61,7 +99,7 @@ The `wp_hash_password_options` filter is available to set the [options](http://p
 #### `wp_check_password`
 
 At its core, this function just calls `password_verify` instead of the default.
-However, it also checks if a user's password was *previously* hashed with the old MD5-based hasher and re-hashes it with bcrypt. This means you can still install this plugin on an existing site and everything will work seamlessly.
+However, it also checks if a user's password was _previously_ hashed with the old MD5-based hasher and re-hashes it with bcrypt. This means you can still install this plugin on an existing site and everything will work seamlessly.
 
 The `check_password` filter is available just like the default WP function.
 
@@ -73,7 +111,7 @@ This function is included here verbatim but with the addition of returning the h
 
 **What happens to existing passwords when I install the plugin?**
 
-Nothing at first. An existing password is only re-hashed with bcrypt *when they log in*. If a user never logs in, their password will remain hashed with MD5 in your database forever.
+Nothing at first. An existing password is only re-hashed with bcrypt _when they log in_. If a user never logs in, their password will remain hashed with MD5 in your database forever.
 
 **Why doesn't this plugin re-hash all existing passwords in the database?**
 
@@ -107,9 +145,9 @@ Better hashing functions like bcrypt serve a different purpose than Two-factor a
 
 ## Further Reading
 
-* `password_hash` [RFC](https://wiki.php.net/rfc/password_hash)
-* [Secure Password Storage in PHP](https://paragonie.com/blog/2016/02/how-safely-store-password-in-2016#php)
-* [How To Safely Store A Password](https://codahale.com/how-to-safely-store-a-password/)
+- `password_hash` [RFC](https://wiki.php.net/rfc/password_hash)
+- [Secure Password Storage in PHP](https://paragonie.com/blog/2016/02/how-safely-store-password-in-2016#php)
+- [How To Safely Store A Password](https://codahale.com/how-to-safely-store-a-password/)
 
 ## Contributors
 
@@ -125,8 +163,8 @@ Contributions are welcome from everyone. We have [contributing guidelines](https
 
 Keep track of development and community news.
 
-* Participate on the [Roots Discourse](https://discourse.roots.io/)
-* Follow [@rootswp on Twitter](https://twitter.com/rootswp)
-* Read and subscribe to the [Roots Blog](https://roots.io/blog/)
-* Subscribe to the [Roots Newsletter](https://roots.io/subscribe/)
-* Listen to the [Roots Radio podcast](https://roots.io/podcast/)
+- Participate on the [Roots Discourse](https://discourse.roots.io/)
+- Follow [@rootswp on Twitter](https://twitter.com/rootswp)
+- Read and subscribe to the [Roots Blog](https://roots.io/blog/)
+- Subscribe to the [Roots Newsletter](https://roots.io/subscribe/)
+- Listen to the [Roots Radio podcast](https://roots.io/podcast/)

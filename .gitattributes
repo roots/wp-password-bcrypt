@@ -3,4 +3,6 @@
 .gitignore export-ignore
 .circleci export-ignore
 CONTRIBUTING.md export-ignore
+phpcs.xml.dist export-ignore
+phpunit.xml.dist export-ignore
 tests export-ignore

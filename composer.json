@@ -56,6 +56,8 @@
       ".gitignore",
       ".circleci",
       "CONTRIBUTING.md",
+      "phpcs.xml.dist",
+      "phpunit.xml.dist",
       "tests"
     ]
   },

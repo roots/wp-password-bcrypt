@@ -45,7 +45,7 @@ function wp_check_password($password, $hash, $user_id = '')
         $wp_hasher = new PasswordHash(8, true);
     }
 
-    if ($wp_hasher->CheckPassword($password, $hash) && ! empty($user_id)) {
+    if (! empty($user_id) && $wp_hasher->CheckPassword($password, $hash)) {
         $hash = wp_set_password($password, $user_id);
     }
 

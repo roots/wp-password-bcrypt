@@ -54,7 +54,7 @@
       ".editorconfig",
       ".gitattributes",
       ".gitignore",
-      ".circleci",
+      ".github",
       "CONTRIBUTING.md",
       "phpcs.xml.dist",
       "phpunit.xml.dist",

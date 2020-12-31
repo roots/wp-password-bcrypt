@@ -3,7 +3,7 @@ name: Publish release
 on:
   push:
     tags:
-      - '*'
+      - "*"
 
 jobs:
   release:
@@ -16,7 +16,7 @@ jobs:
       - name: Setup PHP, with composer and extensions
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '7.3'
+          php-version: "7.3"
           coverage: xdebug
         env:
           COMPOSER_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -29,17 +29,17 @@ jobs:
         run: echo ::set-output name=version::${GITHUB_REF/refs\/tags\//}
         shell: bash
       - name: Create subfolder
-        run: mkdir soil && mv ./* soil/ 2>/dev/null
+        run: mkdir wp-password-bcrypt && mv ./* wp-password-bcrypt/ 2>/dev/null
         continue-on-error: true
       - name: Create distributable zip file
         uses: montudor/action-zip@v0.1.0
         with:
-          args: zip -qq -r9 soil.zip soil
+          args: zip -qq -r9 wp-password-bcrypt.zip wp-password-bcrypt
       - name: Upload zip as release asset
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: soil.zip
-          asset_name: soil-${{ steps.get_version.outputs.version }}.zip
+          file: wp-password-bcrypt.zip
+          asset_name: wp-password-bcrypt-${{ steps.get_version.outputs.version }}.zip
           tag: ${{ github.ref }}
           overwrite: true

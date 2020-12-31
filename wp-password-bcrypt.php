@@ -28,11 +28,7 @@
  */
 function wp_check_password($password, $hash, $user_id = '')
 {
-    if (! password_needs_rehash(
-        $hash,
-        PASSWORD_DEFAULT,
-        apply_filters('wp_hash_password_options', [])
-    )) {
+    if (! password_needs_rehash($hash, PASSWORD_DEFAULT, apply_filters('wp_hash_password_options', []))) {
         return apply_filters(
             'check_password',
             password_verify($password, $hash),
@@ -44,7 +40,8 @@ function wp_check_password($password, $hash, $user_id = '')
 
     global $wp_hasher;
 
-    if (empty($wp_hasher) && require_once(ABSPATH . WPINC . '/class-phpass.php')) {
+    if (empty($wp_hasher)) {
+        require_once ABSPATH . WPINC . '/class-phpass.php';
         $wp_hasher = new PasswordHash(8, true);
     }
 
@@ -117,7 +114,8 @@ function wp_set_password($password, $user_id)
 
     global $wp_hasher;
 
-    if (empty($wp_hasher) && require_once(ABSPATH . WPINC . '/class-phpass.php')) {
+    if (empty($wp_hasher)) {
+        require_once ABSPATH . WPINC . '/class-phpass.php';
         $wp_hasher = new PasswordHash(8, true);
     }
 

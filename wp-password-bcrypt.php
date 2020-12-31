@@ -85,8 +85,6 @@ function wp_hash_password($password)
  */
 function wp_set_password($password, $user_id)
 {
-    global $wpdb;
-
     $hash = wp_hash_password($password);
     $is_api_request = apply_filters(
         'application_password_is_api_request',
@@ -95,6 +93,8 @@ function wp_set_password($password, $user_id)
     );
 
     if (! $is_api_request) {
+        global $wpdb;
+
         $wpdb->update($wpdb->users, [
             'user_pass' => $hash,
             'user_activation_key' => ''

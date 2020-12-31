@@ -9,21 +9,27 @@ use function Brain\Monkey\Filters\expectApplied;
 
 class UserPasswordTest extends TestCase
 {
+    const PASSWORD = 'password';
+    const HASH_BCRYPT = '$2y$10$KIMXDMJq9camkaNHkdrmcOaYJ0AT9lvovEf92yWA34sKdfnn97F9i';
+    const HASH_PHPASS = '$P$BDMJH/qCLaUc5Lj8Oiwp7XmWzrCcJ21';
+    const HASH_BAD = 'NOTAREALHASH';
+
     /** @test */
     public function a_password_is_hashed_using_bcrypt()
     {
-        $user_id = 1;
-
         $this
             ->wpdb()
             ->shouldReceive('update')
             ->withAnyArgs()
             ->andReturnNull();
 
-        expect('clean_user_cache')->once()->andReturn(true);
+        expect('clean_user_cache')
+            ->once()
+            ->andReturn(true);
 
-        $bcrypt_hash = wp_set_password(self::PASSWORD, $user_id);
-        $this->assertTrue(password_verify(self::PASSWORD, $bcrypt_hash));
+        $this->assertTrue(
+            password_verify(self::PASSWORD, wp_set_password(self::PASSWORD, 1))
+        );
     }
 
     /** @test */
@@ -31,35 +37,32 @@ class UserPasswordTest extends TestCase
     {
         wp_hash_password(self::PASSWORD);
 
-        expectApplied('wp_hash_password_options')->andReturn(self::HASH_BCRYPT);
+        expectApplied('wp_hash_password_options')
+            ->andReturn(self::HASH_BCRYPT);
     }
 
     /** @test */
     public function bcrypt_passwords_should_be_verified()
     {
-        $bad_hash = 'randomhash';
-
-        $bcrypt_check = wp_check_password(self::PASSWORD, self::HASH_BCRYPT);
-
         $this
             ->wpHasher()
             ->shouldReceive('CheckPassword')
             ->once()
-            ->with(self::PASSWORD, $bad_hash)
+            ->with(self::PASSWORD, self::HASH_BAD)
             ->andReturn(false);
 
-        $bad_check = wp_check_password(self::PASSWORD, $bad_hash);
+        $this->assertTrue(
+            wp_check_password(self::PASSWORD, self::HASH_BCRYPT)
+        );
 
-        $this->assertTrue($bcrypt_check);
-        $this->assertFalse($bad_check);
+        $this->assertFalse(
+            wp_check_password(self::PASSWORD, self::HASH_BAD)
+        );
     }
 
     /** @test */
     public function phpass_passwords_should_be_verified_and_converted_to_bcrypt()
     {
-        /** @var int $user_id This is necessary to trigger wp_set_password() */
-        $user_id = 1;
-
         $this
             ->wpdb()
             ->shouldReceive('update')
@@ -73,9 +76,12 @@ class UserPasswordTest extends TestCase
             ->with(self::PASSWORD, self::HASH_PHPASS)
             ->andReturn(true);
 
-        expect('clean_user_cache')->once()->andReturn(true);
+        expect('clean_user_cache')
+            ->once()
+            ->andReturn(true);
 
-        $phpass_check = wp_check_password(self::PASSWORD, self::HASH_PHPASS, $user_id);
-        $this->assertTrue($phpass_check);
+        $this->assertTrue(
+            wp_check_password(self::PASSWORD, self::HASH_PHPASS, 1)
+        );
     }
 }

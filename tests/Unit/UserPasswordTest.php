@@ -9,11 +9,6 @@ use function Brain\Monkey\Filters\expectApplied;
 
 class UserPasswordTest extends TestCase
 {
-    const PASSWORD = 'password';
-    const HASH_BCRYPT = '$2y$10$KIMXDMJq9camkaNHkdrmcOaYJ0AT9lvovEf92yWA34sKdfnn97F9i';
-    const HASH_PHPASS = '$P$BDMJH/qCLaUc5Lj8Oiwp7XmWzrCcJ21';
-    const HASH_BAD = 'NOTAREALHASH';
-
     /** @test */
     public function a_password_is_hashed_using_bcrypt()
     {
@@ -28,17 +23,17 @@ class UserPasswordTest extends TestCase
             ->andReturn(true);
 
         $this->assertTrue(
-            password_verify(self::PASSWORD, wp_set_password(self::PASSWORD, 1))
+            password_verify(self::$password, wp_set_password(self::$password, self::$userId))
         );
     }
 
     /** @test */
     public function hashing_password_applies_filter()
     {
-        wp_hash_password(self::PASSWORD);
+        wp_hash_password(self::$password);
 
         expectApplied('wp_hash_password_options')
-            ->andReturn(self::HASH_BCRYPT);
+            ->andReturn(self::$bcryptHash);
     }
 
     /** @test */
@@ -48,15 +43,15 @@ class UserPasswordTest extends TestCase
             ->wpHasher()
             ->shouldReceive('CheckPassword')
             ->once()
-            ->with(self::PASSWORD, self::HASH_BAD)
+            ->with(self::$password, self::$invalidHash)
             ->andReturn(false);
 
         $this->assertTrue(
-            wp_check_password(self::PASSWORD, self::HASH_BCRYPT)
+            wp_check_password(self::$password, self::$bcryptHash)
         );
 
         $this->assertFalse(
-            wp_check_password(self::PASSWORD, self::HASH_BAD)
+            wp_check_password(self::$password, self::$invalidHash)
         );
     }
 
@@ -73,7 +68,7 @@ class UserPasswordTest extends TestCase
             ->wpHasher()
             ->shouldReceive('CheckPassword')
             ->once()
-            ->with(self::PASSWORD, self::HASH_PHPASS)
+            ->with(self::$password, self::$phpassHash)
             ->andReturn(true);
 
         expect('clean_user_cache')
@@ -81,7 +76,7 @@ class UserPasswordTest extends TestCase
             ->andReturn(true);
 
         $this->assertTrue(
-            wp_check_password(self::PASSWORD, self::HASH_PHPASS, 1)
+            wp_check_password(self::$password, self::$phpassHash, self::$userId)
         );
     }
 }

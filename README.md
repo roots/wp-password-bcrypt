@@ -1,5 +1,5 @@
 <p align="center">
-  <img alt="wp-password-bcrypt" src="https://cdn.roots.io/app/uploads/logo-roots.svg" width="150">
+  <img alt="wp-password-bcrypt" src="https://cdn.roots.io/app/uploads/logo-roots.svg" width="100">
 </p>
 
 <p align="center">

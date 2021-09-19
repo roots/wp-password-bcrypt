@@ -1,25 +1,23 @@
 <?php
 
-namespace Roots\PasswordBcrypt\Tests;
+namespace Roots\PasswordBcrypt\Tests\Unit;
 
 use Brain\Monkey;
-use Brain\Monkey\Functions;
-use Brain\Monkey\WP\Filters;
 use Mockery as M;
-use PHPUnit_Framework_TestCase;
+use Mockery\Adapter\Phpunit\MockeryTestCase;
 
 /** {inheritdoc} */
-class WpPasswordBcryptTest extends PHPUnit_Framework_TestCase
+class WpPasswordBcryptTest extends MockeryTestCase
 {
     const PASSWORD = 'password';
     const HASH_BCRYPT = '$2y$10$KIMXDMJq9camkaNHkdrmcOaYJ0AT9lvovEf92yWA34sKdfnn97F9i';
     const HASH_PHPASS = '$P$BDMJH/qCLaUc5Lj8Oiwp7XmWzrCcJ21';
 
     /** {inheritdoc} */
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
-        Monkey::setUpWP();
+        Monkey\setUp();
 
         global $wpdb;
 
@@ -32,9 +30,9 @@ class WpPasswordBcryptTest extends PHPUnit_Framework_TestCase
     }
 
     /** {inheritdoc} */
-    protected function tearDown()
+    protected function tearDown(): void
     {
-        Monkey::tearDownWP();
+        Monkey\tearDown();
         parent::tearDown();
     }
 
@@ -43,7 +41,7 @@ class WpPasswordBcryptTest extends PHPUnit_Framework_TestCase
     {
         $userId = 1;
 
-        Functions::expect('wp_cache_delete')->once()->andReturn(true);
+        Monkey\Functions\expect('wp_cache_delete')->once()->andReturn(true);
 
         $bcrypt_hash = wp_set_password(self::PASSWORD, $userId);
         $this->assertTrue(password_verify(self::PASSWORD, $bcrypt_hash));
@@ -54,7 +52,7 @@ class WpPasswordBcryptTest extends PHPUnit_Framework_TestCase
     {
         wp_hash_password(self::PASSWORD);
 
-        Filters::expectApplied('wp_hash_password_options')->andReturn(self::HASH_BCRYPT);
+        Monkey\Filters\expectApplied('wp_hash_password_options')->andReturn(self::HASH_BCRYPT);
     }
 
     /** @test */
@@ -84,7 +82,7 @@ class WpPasswordBcryptTest extends PHPUnit_Framework_TestCase
             ->with(self::PASSWORD, self::HASH_PHPASS)
             ->andReturn(true);
 
-        Functions::expect('wp_cache_delete')->once()->andReturn(true);
+        Monkey\Functions\expect('wp_cache_delete')->once()->andReturn(true);
 
         $phpass_check = wp_check_password(self::PASSWORD, self::HASH_PHPASS, $userId);
         $this->assertTrue($phpass_check);

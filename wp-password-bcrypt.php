@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Plugin Name: WP Password bcrypt
  * Plugin URI:  https://roots.io

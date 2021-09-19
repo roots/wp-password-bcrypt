@@ -24,7 +24,7 @@ jobs:
           key: ${{ runner.os }}-8.0.x-composer-${{ hashFiles('**/composer.json') }}
           restore-keys: ${{ runner.os }}-8.0.x-composer-
       - name: Install Composer dependencies
-        run: composer install --no-progress --prefer-dist --optimize-autoloader --no-suggest
+        run: composer install --no-progress --prefer-dist --optimize-autoloader
       - name: PHP lint
         run: composer run-script lint
       - name: PHP test

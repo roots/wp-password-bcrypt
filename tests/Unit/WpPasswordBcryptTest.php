@@ -6,14 +6,20 @@ use Brain\Monkey;
 use Mockery as M;
 use Mockery\Adapter\Phpunit\MockeryTestCase;
 
-/** {inheritdoc} */
+// phpcs:disable PSR12.Properties.ConstantVisibility.NotFound
+// phpcs:disable PHPCompatibility.FunctionDeclarations.NewReturnTypeDeclarations.voidFound
+
 class WpPasswordBcryptTest extends MockeryTestCase
 {
     const PASSWORD = 'password';
     const HASH_BCRYPT = '$2y$10$KIMXDMJq9camkaNHkdrmcOaYJ0AT9lvovEf92yWA34sKdfnn97F9i';
     const HASH_PHPASS = '$P$BDMJH/qCLaUc5Lj8Oiwp7XmWzrCcJ21';
 
-    /** {inheritdoc} */
+    /**
+    * Setup the test case.
+    *
+    * @return void
+    */
     protected function setUp(): void
     {
         parent::setUp();
@@ -29,7 +35,11 @@ class WpPasswordBcryptTest extends MockeryTestCase
         $wpdb->users = 'wp_users';
     }
 
-    /** {inheritdoc} */
+    /**
+    * Tear down the test case.
+    *
+    * @return void
+    */
     protected function tearDown(): void
     {
         Monkey\tearDown();

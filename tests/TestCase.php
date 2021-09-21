@@ -5,8 +5,6 @@ namespace Roots\PasswordBcrypt\Tests;
 use Brain\Monkey;
 use Mockery\Adapter\Phpunit\MockeryTestCase;
 
-// phpcs:disable PHPCompatibility.FunctionDeclarations.NewReturnTypeDeclarations.voidFound
-
 class TestCase extends MockeryTestCase
 {
     use MocksWpdb;

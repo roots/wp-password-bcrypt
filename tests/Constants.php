@@ -2,8 +2,6 @@
 
 namespace Roots\PasswordBcrypt\Tests;
 
-// phpcs:disable PHPCompatibility.Classes.NewConstVisibility.Found
-
 class Constants
 {
     /**

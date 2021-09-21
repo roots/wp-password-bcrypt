@@ -6,7 +6,9 @@
     <arg value="sp"/>
 
     <!-- PHP compatibility takes precedent over PSR12 -->
-    <rule ref="PHPCompatibility"/>
+    <rule ref="PHPCompatibility">
+        <exclude-pattern>tests/*</exclude-pattern>
+    </rule>
     <rule ref="PSR12"/>
 
     <!-- Support for PHP 5.6+ -->

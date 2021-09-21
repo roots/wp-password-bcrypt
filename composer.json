@@ -10,8 +10,12 @@
       "homepage": "https://github.com/swalkinshaw"
     },
     {
-      "name": "qwp6t",
+      "name": "QWp6t",
       "homepage": "https://github.com/qwp6t"
+    },
+    {
+      "name": "Brandon Nifong",
+      "homepage": "https://github.com/log1x"
     },
     {
       "name": "Jan Pingel",
@@ -20,7 +24,9 @@
     }
   ],
   "keywords": [
-    "wordpress wp bcrypt password"
+    "wordpress",
+    "bcrypt",
+    "passwords"
   ],
   "support": {
     "issues": "https://github.com/roots/wp-password-bcrypt/issues",
@@ -38,9 +44,9 @@
     "php": ">=5.6.0"
   },
   "require-dev": {
-    "brain/monkey": "^2.5",
+    "brain/monkey": "^2.6",
+    "mockery/mockery": "^1.4",
     "dealerdirect/phpcodesniffer-composer-installer": "^0.7.0",
-    "mockery/mockery": "^1.3 | ^1.4",
     "phpunit/phpunit": "<= 9.3",
     "squizlabs/php_codesniffer": "^3.5",
     "phpcompatibility/php-compatibility": "^9.3"

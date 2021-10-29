@@ -65,6 +65,7 @@
   },
   "scripts": {
     "test": "phpunit",
-    "lint": "phpcs"
+    "lint": "phpcs",
+    "coverage": "XDEBUG_MODE=coverage phpunit --coverage-text --coverage-html=coverage"
   }
 }

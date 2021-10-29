@@ -80,4 +80,40 @@ class UserPasswordTest extends TestCase
             wp_check_password(Constants::PASSWORD, Constants::PHPPASS_HASH, Constants::USER_ID)
         );
     }
+
+    /** @test */
+    public function wp_hasher_global_should_be_automatically_assigned()
+    {
+        global $wp_hasher;
+
+        $this
+            ->wpdb()
+            ->shouldReceive('update')
+            ->withAnyArgs()
+            ->andReturnNull();
+
+        $this
+            ->wpHasher() // 👈🏼 global is assigned here
+            ->shouldReceive('CheckPassword')
+            ->once()
+            ->with(Constants::PASSWORD, Constants::PHPPASS_HASH)
+            ->andReturn(true);
+
+        expect('clean_user_cache')
+            ->once()
+            ->andReturn(true);
+
+
+        $class_name = get_class($wp_hasher);
+        $wp_hasher = null;
+
+
+        $this->assertNotInstanceOf($class_name, $wp_hasher);
+
+        $this->assertTrue(
+            wp_check_password(Constants::PASSWORD, Constants::PHPPASS_HASH, Constants::USER_ID)
+        );
+
+        $this->assertInstanceOf($class_name, $wp_hasher);
+    }
 }

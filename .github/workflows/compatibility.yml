@@ -1,8 +1,12 @@
 name: Compatibility Checks
 
 on:
+  pull_request:
+    branches:
+      - master
   push:
-    branches: [ $default-branch ]
+    branches:
+      - master
 
 jobs:
   compatibility:

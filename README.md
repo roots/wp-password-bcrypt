@@ -13,7 +13,7 @@
     <img alt="Packagist Downloads" src="https://img.shields.io/packagist/dt/roots/wp-password-bcrypt.svg?style=flat-square)" />
   </a>
 
-  <img alt="Build Status" src="https://github.com/roots/wp-password-bcrypt/workflows/Compatibility%20Checks/badge.svg" />
+  <img alt="Build Status" src="https://github.com/roots/wp-password-bcrypt/workflows/Main/badge.svg" />
 
   <a href="https://twitter.com/rootswp">
     <img alt="Follow Roots" src="https://img.shields.io/twitter/follow/rootswp.svg?style=flat-square&color=1da1f2" />

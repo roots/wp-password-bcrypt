@@ -6,7 +6,7 @@
  * Description: Replaces wp_hash_password and wp_check_password with password_hash and password_verify.
  * Author:      Roots
  * Author URI:  https://roots.io
- * Version:     1.0.0
+ * Version:     1.1.0
  * Licence:     MIT
  */
 

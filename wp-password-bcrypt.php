@@ -86,14 +86,52 @@ function wp_hash_password($password)
 function wp_set_password($password, $user_id)
 {
     $hash = wp_hash_password($password);
-    global $wpdb;
+    $is_api_request = apply_filters(
+        'application_password_is_api_request',
+        (defined('XMLRPC_REQUEST') && XMLRPC_REQUEST) ||
+        (defined('REST_REQUEST') && REST_REQUEST)
+    );
 
-    $wpdb->update($wpdb->users, [
-        'user_pass' => $hash,
-        'user_activation_key' => ''
-    ], ['ID' => $user_id]);
+    if (! $is_api_request) {
+        global $wpdb;
 
-    clean_user_cache($user_id);
+        $wpdb->update($wpdb->users, [
+            'user_pass' => $hash,
+            'user_activation_key' => ''
+        ], ['ID' => $user_id]);
+
+        clean_user_cache($user_id);
+
+        return $hash;
+    }
+
+    if (
+        ! class_exists('WP_Application_Passwords') ||
+        empty($passwords = WP_Application_Passwords::get_user_application_passwords($user_id))
+    ) {
+        return;
+    }
+
+    global $wp_hasher;
+
+    if (empty($wp_hasher)) {
+        require_once ABSPATH . WPINC . '/class-phpass.php';
+        $wp_hasher = new PasswordHash(8, true);
+    }
+
+    foreach ($passwords as $key => $value) {
+        if (! $wp_hasher->CheckPassword($password, $value['password'])) {
+            continue;
+        }
+
+        $passwords[$key]['password'] = $hash;
+    }
+
+    update_user_meta(
+        $user_id,
+        WP_Application_Passwords::USERMETA_KEY_APPLICATION_PASSWORDS,
+        $passwords
+    );
 
     return $hash;
 }

@@ -6,7 +6,7 @@
  * Description: Replaces wp_hash_password and wp_check_password with password_hash and password_verify.
  * Author:      Roots
  * Author URI:  https://roots.io
- * Version:     1.2.0
+ * Version:     1.1.0
  * Licence:     MIT
  */
 
@@ -19,14 +19,15 @@
  * @link https://www.php.net/manual/en/function.password-verify.php
  * @link https://www.php.net/manual/en/function.password-needs-rehash.php
  *
- * @param  string     $password The password in plaintext.
- * @param  string     $hash     The hashed password to check against.
- * @param  string|int $user_id  The optional user ID.
+ * @param string     $password The password in plaintext.
+ * @param string     $hash     The hashed password to check against.
+ * @param string|int $user_id  The optional user ID.
+ *
  * @return bool
  *
  * @SuppressWarnings(PHPMD.CamelCaseVariableName) $wp_hasher
  */
-if(!function_exists('wp_check_password')) {
+if ( ! function_exists( 'wp_check_password' ) ) {
 	function wp_check_password( $password, $hash, $user_id = '' ) {
 		if ( ! password_needs_rehash( $hash, PASSWORD_DEFAULT, apply_filters( 'wp_hash_password_options', [] ) ) ) {
 			return apply_filters(
@@ -65,10 +66,11 @@ if(!function_exists('wp_check_password')) {
  *
  * @link https://www.php.net/manual/en/function.password-hash.php
  *
- * @param  string $password The password in plain text.
+ * @param string $password The password in plain text.
+ *
  * @return string
  */
-if(!function_exists('wp_hash_password')) {
+if ( ! function_exists( 'wp_hash_password' ) ) {
 	function wp_hash_password( $password ) {
 		return password_hash(
 			$password,
@@ -81,11 +83,12 @@ if(!function_exists('wp_hash_password')) {
 /**
  * Hash and update the user's password.
  *
- * @param  string $password The new user password in plaintext.
- * @param  int    $user_id  The user ID.
+ * @param string $password The new user password in plaintext.
+ * @param int    $user_id  The user ID.
+ *
  * @return string
  */
-if(!function_exists('wp_set_password')) {
+if ( ! function_exists( 'wp_set_password' ) ) {
 	function wp_set_password( $password, $user_id ) {
 		$hash           = wp_hash_password( $password );
 		$is_api_request = apply_filters(
@@ -134,7 +137,6 @@ if(!function_exists('wp_set_password')) {
 			WP_Application_Passwords::USERMETA_KEY_APPLICATION_PASSWORDS,
 			$passwords
 		);
-
 		return $hash;
 	}
 }

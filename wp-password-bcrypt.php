@@ -69,6 +69,7 @@ function wp_check_password($password, $hash, $user_id = '')
  */
 function wp_hash_password($password)
 {
+    do_action('before_wp_hash_password', $password);
     return password_hash(
         $password,
         PASSWORD_DEFAULT,

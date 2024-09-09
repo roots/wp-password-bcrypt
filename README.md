@@ -107,6 +107,8 @@ The `check_password` filter is available just like the default WP function.
 
 This function is included here verbatim but with the addition of returning the hash. The default WP function does not return anything which means you end up hashing it twice for no reason.
 
+The `wp_set_password` action is available just like the default WP function.
+
 ## FAQ
 
 **What happens to existing passwords when I install the plugin?**

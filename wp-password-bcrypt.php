@@ -102,6 +102,14 @@ function wp_set_password($password, $user_id)
 
         clean_user_cache($user_id);
 
+        /**
+         * Fires after the user password is set.
+         *
+         * @param string  $password The plaintext password just set.
+         * @param int     $user_id  The ID of the user whose password was just set.
+         */
+        do_action('wp_set_password', $password, $user_id);
+
         return $hash;
     }
 

@@ -7,6 +7,7 @@ use Roots\PasswordBcrypt\Tests\Constants;
 
 use function Brain\Monkey\Functions\expect;
 use function Brain\Monkey\Filters\expectApplied;
+use function Brain\Monkey\Actions\expectDone;
 
 class UserPasswordTest extends TestCase
 {
@@ -35,6 +36,20 @@ class UserPasswordTest extends TestCase
 
         expectApplied('wp_hash_password_options')
             ->andReturn(Constants::BCRYPT_HASH);
+    }
+
+    /** @test */
+    public function setting_password_does_action()
+    {
+        expect('clean_user_cache')
+            ->once()
+            ->andReturn(true);
+
+        expectDone('wp_set_password')
+            ->once()
+            ->with(Constants::PASSWORD, Constants::USER_ID);
+
+        wp_set_password(Constants::PASSWORD, Constants::USER_ID);
     }
 
     /** @test */

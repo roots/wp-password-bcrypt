@@ -24,8 +24,11 @@ class UserPasswordTest extends TestCase
             ->once()
             ->andReturn(true);
 
+        $hash = wp_set_password(Constants::PASSWORD, Constants::USER_ID);
+
+        $this->assertIsString($hash);
         $this->assertTrue(
-            password_verify(Constants::PASSWORD, wp_set_password(Constants::PASSWORD, Constants::USER_ID))
+            password_verify(Constants::PASSWORD, $hash)
         );
     }
 

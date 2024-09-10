@@ -12,7 +12,10 @@ use function Brain\Monkey\Filters\expectApplied;
 class ApplicationPasswordTest extends TestCase
 {
 
-    /** @test */
+    /**
+     * @test
+     * @runInSeparateProcess
+     */
     public function phpass_application_passwords_should_be_verified_and_converted_to_bcrypt()
     {
         require_once __DIR__ . '/../WPApplicationPasswords.php';
@@ -69,5 +72,7 @@ class ApplicationPasswordTest extends TestCase
             });
 
         $hash = wp_set_password(Constants::PASSWORD, Constants::USER_ID);
+
+        $this->assertIsString($hash);
     }
 }

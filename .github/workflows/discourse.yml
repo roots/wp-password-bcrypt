@@ -3,6 +3,7 @@ name: Post release topic on Discourse
 on:
   release:
     types: [published]
+  workflow_dispatch:
 
 jobs:
   post:

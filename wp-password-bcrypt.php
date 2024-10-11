@@ -108,7 +108,7 @@ function wp_set_password($password, $user_id)
          *
          * @param string  $password      The plaintext password just set.
          * @param int     $user_id       The ID of the user whose password was just set.
-		 * @param WP_User $old_user_data Object containing user's data prior to update.
+         * @param WP_User $old_user_data Object containing user's data prior to update.
          */
         do_action('wp_set_password', $password, $user_id, $old_user_data);
 

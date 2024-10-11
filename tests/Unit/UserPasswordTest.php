@@ -22,6 +22,7 @@ class UserPasswordTest extends TestCase
 
         expect('get_userdata')
             ->once()
+            ->with(Constants::USER_ID)
             ->andReturn([]);
 
         expect('clean_user_cache')
@@ -54,6 +55,7 @@ class UserPasswordTest extends TestCase
 
         expect('get_userdata')
             ->once()
+            ->with(Constants::USER_ID)
             ->andReturn($data);
 
         expect('clean_user_cache')
@@ -104,6 +106,7 @@ class UserPasswordTest extends TestCase
 
         expect('get_userdata')
             ->once()
+            ->with(Constants::USER_ID)
             ->andReturn([]);
 
         expect('clean_user_cache')
@@ -135,6 +138,7 @@ class UserPasswordTest extends TestCase
 
         expect('get_userdata')
             ->once()
+            ->with(Constants::USER_ID)
             ->andReturn([]);
 
         expect('clean_user_cache')

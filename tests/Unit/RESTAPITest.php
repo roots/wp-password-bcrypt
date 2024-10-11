@@ -19,6 +19,7 @@ class RESTAPIPasswordTest extends TestCase
     {
         expect('get_userdata')
             ->once()
+            ->with(Constants::USER_ID)
             ->andReturn([]);
 
         expectApplied('application_password_is_api_request')

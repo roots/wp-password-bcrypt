@@ -5,6 +5,7 @@ namespace Roots\PasswordBcrypt\Tests\Unit;
 use Roots\PasswordBcrypt\Tests\TestCase;
 use Roots\PasswordBcrypt\Tests\Constants;
 
+use function Brain\Monkey\Functions\expect;
 use function Brain\Monkey\Filters\expectApplied;
 
 class RESTAPIPasswordTest extends TestCase
@@ -16,6 +17,10 @@ class RESTAPIPasswordTest extends TestCase
      */
     public function phpass_application_passwords_should_be_verified_and_converted_to_bcrypt()
     {
+        expect('get_userdata')
+            ->once()
+            ->andReturn([]);
+
         expectApplied('application_password_is_api_request')
             ->andReturn(true);
 

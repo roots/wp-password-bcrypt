@@ -20,6 +20,11 @@ class UserPasswordTest extends TestCase
             ->withAnyArgs()
             ->andReturnNull();
 
+        expect('get_userdata')
+            ->once()
+            ->with(Constants::USER_ID)
+            ->andReturn([]);
+
         expect('clean_user_cache')
             ->once()
             ->andReturn(true);
@@ -44,13 +49,22 @@ class UserPasswordTest extends TestCase
     /** @test */
     public function setting_password_does_action()
     {
+        $data = [
+            'ID' => Constants::USER_ID,
+        ];
+
+        expect('get_userdata')
+            ->once()
+            ->with(Constants::USER_ID)
+            ->andReturn($data);
+
         expect('clean_user_cache')
             ->once()
             ->andReturn(true);
 
         expectDone('wp_set_password')
             ->once()
-            ->with(Constants::PASSWORD, Constants::USER_ID);
+            ->with(Constants::PASSWORD, Constants::USER_ID, $data);
 
         wp_set_password(Constants::PASSWORD, Constants::USER_ID);
     }
@@ -90,6 +104,11 @@ class UserPasswordTest extends TestCase
             ->with(Constants::PASSWORD, Constants::PHPPASS_HASH)
             ->andReturn(true);
 
+        expect('get_userdata')
+            ->once()
+            ->with(Constants::USER_ID)
+            ->andReturn([]);
+
         expect('clean_user_cache')
             ->once()
             ->andReturn(true);
@@ -116,6 +135,11 @@ class UserPasswordTest extends TestCase
             ->once()
             ->with(Constants::PASSWORD, Constants::PHPPASS_HASH)
             ->andReturn(true);
+
+        expect('get_userdata')
+            ->once()
+            ->with(Constants::USER_ID)
+            ->andReturn([]);
 
         expect('clean_user_cache')
             ->once()

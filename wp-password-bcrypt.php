@@ -85,6 +85,7 @@ function wp_hash_password($password)
  */
 function wp_set_password($password, $user_id)
 {
+    $old_user_data = get_userdata($user_id);
     $hash = wp_hash_password($password);
     $is_api_request = apply_filters(
         'application_password_is_api_request',
@@ -105,10 +106,11 @@ function wp_set_password($password, $user_id)
         /**
          * Fires after the user password is set.
          *
-         * @param string  $password The plaintext password just set.
-         * @param int     $user_id  The ID of the user whose password was just set.
+         * @param string  $password      The plaintext password just set.
+         * @param int     $user_id       The ID of the user whose password was just set.
+         * @param WP_User $old_user_data Object containing user's data prior to update.
          */
-        do_action('wp_set_password', $password, $user_id);
+        do_action('wp_set_password', $password, $user_id, $old_user_data);
 
         return $hash;
     }

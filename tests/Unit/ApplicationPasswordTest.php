@@ -29,6 +29,11 @@ class ApplicationPasswordTest extends TestCase
             ->times(3)
             ->andReturnValues([true, true, false]);
 
+        expect('get_userdata')
+            ->once()
+            ->with(Constants::USER_ID)
+            ->andReturn([]);
+
         expect('update_user_meta')
             ->once()
             ->withArgs(function (...$args) {

@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <ruleset name="PasswordBcrypt">
-    <description>PSR12 with PHP 5.6+ compatibility</description>
+    <description>PSR12 with PHP 8.0+ compatibility</description>
     <arg name="extensions" value="php"/>
     <arg name="colors"/>
     <arg value="sp"/>
@@ -11,8 +11,8 @@
     </rule>
     <rule ref="PSR12"/>
 
-    <!-- Support for PHP 5.6+ -->
-    <config name="testVersion" value="5.6-"/>
+    <!-- Support for PHP 8.0+ -->
+    <config name="testVersion" value="8.0-"/>
 
     <file>wp-password-bcrypt.php</file>
     <file>tests</file>

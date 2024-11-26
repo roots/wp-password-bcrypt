@@ -125,10 +125,6 @@ Magically, everything still works. See this [comment](https://github.com/roots/w
 
 Any existing bcrypt hashed passwords will remain that way. Any new users or users resetting a password will get a new MD5 hashed password.
 
-**Why aren't you using the password_compat library so this works back to PHP 5.3.7?**
-
-The [password_compact](https://github.com/ircmaxell/password_compat) library is great if you really need it. But the Roots team advocates using supported versions of PHP which of now (March 2016) is 5.5 and above. Part of security is using a version of PHP that still gets security patches so we won't actively do something to support old unsupported versions of PHP.
-
 **Why doesn't this plugin show up in the admin?**
 
 If you're using Composer, then the `wp-password-bcrypt.php` file is automatically autoloaded. It's not treated as a true WordPress plugin since the package type is not set to `wordpress-muplugin` so it won't show up in the plugin list.

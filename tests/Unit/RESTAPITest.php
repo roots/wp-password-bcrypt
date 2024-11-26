@@ -10,7 +10,6 @@ use function Brain\Monkey\Filters\expectApplied;
 
 class RESTAPIPasswordTest extends TestCase
 {
-
     /**
      * @test
      * @runInSeparateProcess

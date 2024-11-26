@@ -11,7 +11,6 @@ use function Brain\Monkey\Filters\expectApplied;
 
 class ApplicationPasswordTest extends TestCase
 {
-
     /**
      * @test
      * @runInSeparateProcess

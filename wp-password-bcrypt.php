@@ -26,8 +26,13 @@
  *
  * @SuppressWarnings(PHPMD.CamelCaseVariableName) $wp_hasher
  */
-function wp_check_password($password, $hash, $user_id = '')
-{
+function wp_check_password(
+    #[\SensitiveParameter]
+    $password,
+    #[\SensitiveParameter]
+    $hash,
+    $user_id = ''
+) {
     if (! password_needs_rehash($hash, PASSWORD_DEFAULT, apply_filters('wp_hash_password_options', []))) {
         return apply_filters(
             'check_password',
@@ -67,8 +72,10 @@ function wp_check_password($password, $hash, $user_id = '')
  * @param  string $password The password in plain text.
  * @return string
  */
-function wp_hash_password($password)
-{
+function wp_hash_password(
+    #[\SensitiveParameter]
+    $password
+) {
     return password_hash(
         $password,
         PASSWORD_DEFAULT,
@@ -83,8 +90,11 @@ function wp_hash_password($password)
  * @param  int    $user_id  The user ID.
  * @return string The new hashed password.
  */
-function wp_set_password($password, $user_id)
-{
+function wp_set_password(
+    #[\SensitiveParameter]
+    $password,
+    $user_id
+) {
     $old_user_data = get_userdata($user_id);
     $hash = wp_hash_password($password);
     $is_api_request = apply_filters(

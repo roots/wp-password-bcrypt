@@ -46,7 +46,7 @@
   "require-dev": {
     "brain/monkey": "^2.6",
     "mockery/mockery": "^1.4",
-    "dealerdirect/phpcodesniffer-composer-installer": "^0.7.0",
+    "dealerdirect/phpcodesniffer-composer-installer": "^1.0.0",
     "phpunit/phpunit": "^9.6",
     "squizlabs/php_codesniffer": "^3.5",
     "phpcompatibility/php-compatibility": "^9.3"

@@ -32,7 +32,7 @@ jobs:
         run: mkdir wp-password-bcrypt && mv ./* wp-password-bcrypt/ 2>/dev/null
         continue-on-error: true
       - name: Create distributable zip file
-        uses: montudor/action-zip@v0.1.0
+        uses: montudor/action-zip@v1.0.0
         with:
           args: zip -qq -r9 wp-password-bcrypt.zip wp-password-bcrypt
       - name: Upload zip as release asset

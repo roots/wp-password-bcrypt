@@ -1,3 +1,7 @@
+> [!WARNING]
+> This package will become redundant with WordPress 6.8+ as bcrypt becomes the default password hashing method.
+> See [WordPress 6.8 will use bcrypt for password hashing](https://make.wordpress.org/core/2025/02/17/wordpress-6-8-will-use-bcrypt-for-password-hashing/) for more details.
+
 <p align="center">
   <img alt="wp-password-bcrypt" src="https://cdn.roots.io/app/uploads/logo-roots.svg" width="100">
 </p>

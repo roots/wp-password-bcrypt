@@ -75,5 +75,9 @@
     "allow-plugins": {
       "dealerdirect/phpcodesniffer-composer-installer": true
     }
+  },
+  "conflict": {
+    "roots/wordpress": ">=6.8",
+    "roots/wordpress-full": ">=6.8"
   }
 }

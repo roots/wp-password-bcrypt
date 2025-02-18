@@ -77,7 +77,7 @@
     }
   },
   "conflict": {
-    "roots/wordpress": ">=6.8",
+    "roots/wordpress-no-content": ">=6.8",
     "roots/wordpress-full": ">=6.8"
   }
 }
